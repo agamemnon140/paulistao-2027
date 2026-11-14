@@ -64,7 +64,8 @@ export function normalizarJogo(g) {
     id: g.IdJogo,
     numero: g.Numero ?? null,
     rodada: Number(g.Rodada),
-    fase: (g.Fase || '').trim(),
+    // A FPF alterna caixa entre temporadas ("Primeira Fase" em 2022, "PRIMEIRA FASE" depois).
+    fase: (g.Fase || '').trim().toUpperCase(),
     numFase: g.NumFase ?? null,
     grupo: (g.Grupo || '').trim(),
     quando: dataIso(g.Data, g.Horario),

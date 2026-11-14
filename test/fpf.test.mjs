@@ -35,6 +35,7 @@ test('placar ausente ou inválido vira null nos dois lados', () => {
     assert.deepEqual([j.gc, j.gf], [null, null], `ResultadoMandante=${JSON.stringify(ruim)}`);
   }
   assert.throws(() => F.normalizarJogo({ ...base, IdJogo: undefined }), /IdJogo/);
+  assert.equal(F.normalizarJogo({ ...base, Fase: ' Primeira Fase ' }).fase, 'PRIMEIRA FASE');
 });
 
 test('data e hora viram ISO com fuso de São Paulo', () => {
