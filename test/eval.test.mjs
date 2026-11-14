@@ -10,7 +10,7 @@ import { CFG_MODELO } from '../engine/config.mjs';
 import { temporada, escadasEstaduais, nacional, ANOS, SIGLAS } from '../eval/dados.mjs';
 import { notas, elos, ELO_MIN, ELO_MAX } from '../eval/sementes.mjs';
 import { brierDe, resumo, difBrier } from '../eval/metricas.mjs';
-import { preverTemporada, principal, ehMataMata, GOLS_PADRAO } from '../eval/backtest.mjs';
+import { preverTemporada, principal, serializar, ehMataMata, GOLS_PADRAO } from '../eval/backtest.mjs';
 import { relatorio } from '../eval/relatorio.mjs';
 
 const escadas = escadasEstaduais(), nac = nacional();
@@ -124,8 +124,10 @@ test('métricas: Brier, viés e diferença pareada', () => {
 const S = principal({ gravar: false });
 
 test('eval/out/backtest.json e eval/RELATORIO.md são o que o código produz hoje', () => {
-  assert.equal(fs.readFileSync(new URL('../eval/out/backtest.json', import.meta.url), 'utf8'), JSON.stringify(S, null, 1) + '\n');
-  assert.equal(fs.readFileSync(new URL('../eval/RELATORIO.md', import.meta.url), 'utf8'), relatorio(S));
+  // Comparação no texto arredondado (10 algarismos): o último bit muda entre versões do Node.
+  const texto = serializar(S);
+  assert.equal(fs.readFileSync(new URL('../eval/out/backtest.json', import.meta.url), 'utf8'), texto);
+  assert.equal(fs.readFileSync(new URL('../eval/RELATORIO.md', import.meta.url), 'utf8'), relatorio(JSON.parse(texto)));
 });
 
 test('controle negativo: a semente invertida perde do piso nas duas divisões', () => {

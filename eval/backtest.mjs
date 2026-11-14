@@ -144,12 +144,18 @@ export function principal({ gravar = true } = {}) {
     D.presets = Object.fromEntries(['conservador', 'base', 'agressivo'].map(ak => [ak, resumo(prever(sigla, ref, rRef, ESCOLHA, { ak })).brier]));
   }
   if (gravar) {
+    const texto = serializar(saida);
     fs.mkdirSync(path.join(AQUI, 'out'), { recursive: true });
-    fs.writeFileSync(path.join(AQUI, 'out', 'backtest.json'), JSON.stringify(saida, null, 1) + '\n');
-    fs.writeFileSync(path.join(AQUI, 'RELATORIO.md'), relatorio(saida));
+    fs.writeFileSync(path.join(AQUI, 'out', 'backtest.json'), texto);
+    fs.writeFileSync(path.join(AQUI, 'RELATORIO.md'), relatorio(JSON.parse(texto)));
   }
   return saida;
 }
+
+// O que vai para o disco leva 10 algarismos significativos: o último bit das somas muda
+// entre versões do Node, e o arquivo commitado tem de sair igual em qualquer uma. O
+// relatório é montado a partir deste texto, não dos números em memória.
+export const serializar = saida => JSON.stringify(saida, (k, v) => (typeof v === 'number' && !Number.isInteger(v) ? +v.toPrecision(10) : v), 1) + '\n';
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   principal();

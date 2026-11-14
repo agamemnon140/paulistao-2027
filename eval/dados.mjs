@@ -14,7 +14,9 @@ export const SIGLAS = ['A1', 'A2'];
 
 export function temporada(sigla, ano) {
   const t = ler(`data/fpf/${sigla}/${ano}.json`);
-  const times = [...new Set(t.jogos.flatMap(j => [j.casa, j.fora]))].sort((a, b) => a.localeCompare(b, 'pt'));
+  // Ordem por código de caractere, não por localidade: a ordem dos times define a ordem das
+  // somas no motor, e a do ICU muda entre versões do Node.
+  const times = [...new Set(t.jogos.flatMap(j => [j.casa, j.fora]))].sort();
   return { sigla, ano, times, jogos: t.jogos };
 }
 
