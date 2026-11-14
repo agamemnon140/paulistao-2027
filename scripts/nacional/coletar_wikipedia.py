@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Classificações FINAIS das Séries A, B, C e D do Campeonato Brasileiro, 2021 a 2025.
+"""Classificações das Séries A, B, C e D do Campeonato Brasileiro.
 
-Saída: data/nacional/classificacoes_2021_2025.json, no formato {"2021A": [{"pos": 1, "n": "..."}]}.
+    python scripts/nacional/coletar_wikipedia.py                 # 2021 a 2025 (finais)
+    python scripts/nacional/coletar_wikipedia.py --anos 2026     # o ano corrente
+
+Saída: data/nacional/classificacoes_<anos>.json, no formato {"2021A": [{"pos": 1, "n": "..."}]}.
+De um ano em andamento sai a tabela como está no dia da leitura (campo `lidoEm`): é
+provisória até a série acabar, e o arquivo tem de ser relido depois.
 
 Para que serve: as sementes "divisão nacional" e "Brasileiro do ano anterior" do backtest
 precisam saber em que série cada clube paulista jogou e em que posição terminou.
@@ -15,14 +20,15 @@ posições únicas de 1 a N e o número esperado de clubes por série.
 Roda no GitHub Actions (workflow "Classificações nacionais"), porque o ambiente de
 desenvolvimento não alcança a Wikipedia.
 """
-import io, json, os, re, sys, time, urllib.parse, urllib.request
+import argparse, datetime, io, json, os, re, sys, time, urllib.parse, urllib.request
 
 API = 'https://pt.wikipedia.org/w/api.php'
 UA = 'paulistao-2027/1.0 (https://github.com/agamemnon140/paulistao-2027)'
 AQUI = os.path.dirname(os.path.abspath(__file__))
-SAIDA = os.path.join(AQUI, '..', '..', 'data', 'nacional', 'classificacoes_2021_2025.json')
+DESTINO = os.path.join(AQUI, '..', '..', 'data', 'nacional')
 ESPERADO = {'A': 20, 'B': 20, 'C': 20, 'D': 64}
-ESPERADO_ANO = {('D', 2021): 68}   # fase preliminar com 8 clubes em 2021
+ESPERADO_ANO = {('D', 2021): 68,   # fase preliminar com 8 clubes em 2021
+                ('D', 2026): 96}   # a Série D passou a 96 clubes em 2026
 
 
 def wikitext(titulo):
@@ -91,8 +97,13 @@ def fontes(artigo, predef, serie):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--anos', default='2021-2025', help='um ano ou um intervalo, ex.: 2026 ou 2021-2025')
+    arg = ap.parse_args()
+    ini, fim = [int(x) for x in (arg.anos.split('-') * 2)[:2]]
+    saida = os.path.join(DESTINO, 'classificacoes_%s.json' % ('%d' % ini if ini == fim else '%d_%d' % (ini, fim)))
     res, via, falhas = {}, {}, []
-    for ano in range(2021, 2026):
+    for ano in range(ini, fim + 1):
         for s in 'ABCD':
             chave = '%d%s' % (ano, s)
             artigo = wikitext('Campeonato Brasileiro de Futebol de %d - Série %s' % (ano, s))
@@ -111,14 +122,22 @@ def main():
                 if linhas: break
             if not linhas:
                 print('::error::%s: não consegui ler %d clubes (artigo %s, predefinição %s)' % (chave, n_esperado, 'ok' if artigo else 'ausente', 'ok' if predef else 'ausente'))
+                # O que cada leitor achou em cada fonte, para diagnosticar pelo log.
+                for k, txt in enumerate(fontes(artigo, predef, s)):
+                    for fn in (by_sports_table, by_rows):
+                        r = fn(txt) or []
+                        poss = [p for p, _ in r]
+                        print('   fonte %d, %s: %d linhas, posições %s a %s, %d distintas' % (k, fn.__name__, len(r), min(poss) if poss else '-', max(poss) if poss else '-', len(set(poss))))
+                if artigo: print('   seções: ' + ' | '.join(l.strip() for l in artigo.split('\n') if l.strip().startswith('==')))
                 falhas.append(chave); continue
             print('%s: %3d clubes via %s' % (chave, len(linhas), via[chave]))
             res[chave] = [{'pos': p, 'n': n} for p, n in linhas]
-    os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
-    json.dump({'_obs': 'Classificações finais do Campeonato Brasileiro. Fonte: Wikipedia em português (wikitext, CC BY-SA), lida por scripts/nacional/coletar_wikipedia.py. Nomes como estão lá.',
+    os.makedirs(DESTINO, exist_ok=True)
+    json.dump({'_obs': 'Classificações do Campeonato Brasileiro. Fonte: Wikipedia em português (wikitext, CC BY-SA), lida por scripts/nacional/coletar_wikipedia.py. Nomes como estão lá. De um ano em andamento, a tabela é a do dia em lidoEm.',
+               'lidoEm': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d'),
                'via': via, 'falhas': falhas, 'classificacoes': res},
-              io.open(SAIDA, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
-    print('gravado: %d de 20 classificações; falhas: %s' % (len(res), falhas))
+              io.open(saida, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    print('gravado em %s: %d de %d classificações; falhas: %s' % (os.path.basename(saida), len(res), 4 * (fim - ini + 1), falhas))
     sys.exit(1 if falhas else 0)
 
 

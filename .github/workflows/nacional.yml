@@ -1,10 +1,16 @@
 name: Classificações nacionais
 
-# Disparo manual. Lê na Wikipedia em português as classificações finais das Séries A a D
-# de 2021 a 2025 e commita data/nacional/. Só precisa rodar de novo se o script mudar.
+# Disparo manual. Lê na Wikipedia em português as classificações das Séries A a D e commita
+# data/nacional/. 2021 a 2025 são finais e só precisam de nova leitura se o script mudar. O
+# ano corrente (2026) é provisório enquanto alguma série estiver em andamento: reler quando
+# a Série A acabar, antes de fechar as sementes do Paulista.
 
 on:
   workflow_dispatch:
+    inputs:
+      anos:
+        description: 'Um ano ou um intervalo (2026 ou 2021-2025)'
+        default: '2021-2025'
 
 permissions:
   contents: write
@@ -20,14 +26,14 @@ jobs:
       - name: Coletar e interpretar
         id: coleta
         continue-on-error: true
-        run: python scripts/nacional/coletar_wikipedia.py
+        run: python scripts/nacional/coletar_wikipedia.py --anos "${{ inputs.anos }}"
       - name: Commit se mudou
         run: |
           if [ -n "$(git status --porcelain data/nacional)" ]; then
             git config user.name  "coleta-bot"
             git config user.email "actions@users.noreply.github.com"
             git add data/nacional
-            git commit -m "dados: classificações nacionais 2021-2025 [skip ci]"
+            git commit -m "dados: classificações nacionais ${{ inputs.anos }} [skip ci]"
             git push
           else
             echo "Sem mudanças."
