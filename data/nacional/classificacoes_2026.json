@@ -1,0 +1,645 @@
+{
+"_obs": "Classificações do Campeonato Brasileiro. Fonte: Wikipedia em português (wikitext, CC BY-SA), lida por scripts/nacional/coletar_wikipedia.py. Nomes como estão lá. De um ano em andamento, a tabela é a do dia em lidoEm.",
+"lidoEm": "2026-11-14",
+"via": {
+"2026A": "fonte 0, by_sports_table",
+"2026B": "fonte 0, by_sports_table",
+"2026C": "fonte 0, by_sports_table",
+"2026D": "fonte 0, by_rows"
+},
+"falhas": [],
+"classificacoes": {
+"2026A": [
+{
+"pos": 1,
+"n": "Flamengo"
+},
+{
+"pos": 2,
+"n": "Palmeiras"
+},
+{
+"pos": 3,
+"n": "Cruzeiro"
+},
+{
+"pos": 4,
+"n": "Fluminense"
+},
+{
+"pos": 5,
+"n": "Athletico-PR"
+},
+{
+"pos": 6,
+"n": "Bahia"
+},
+{
+"pos": 7,
+"n": "Atlético-MG"
+},
+{
+"pos": 8,
+"n": "Red Bull Bragantino"
+},
+{
+"pos": 9,
+"n": "Santos"
+},
+{
+"pos": 10,
+"n": "São Paulo"
+},
+{
+"pos": 11,
+"n": "Botafogo"
+},
+{
+"pos": 12,
+"n": "Coritiba"
+},
+{
+"pos": 13,
+"n": "Vasco"
+},
+{
+"pos": 14,
+"n": "Mirassol"
+},
+{
+"pos": 15,
+"n": "Vitória"
+},
+{
+"pos": 16,
+"n": "Internacional-RS"
+},
+{
+"pos": 17,
+"n": "Corinthians"
+},
+{
+"pos": 18,
+"n": "Grêmio"
+},
+{
+"pos": 19,
+"n": "Remo"
+},
+{
+"pos": 20,
+"n": "Chapecoense"
+}
+],
+"2026B": [
+{
+"pos": 1,
+"n": "Grêmio Novorizontino"
+},
+{
+"pos": 2,
+"n": "Juventude"
+},
+{
+"pos": 3,
+"n": "Vila Nova-GO"
+},
+{
+"pos": 4,
+"n": "Fortaleza"
+},
+{
+"pos": 5,
+"n": "Criciúma"
+},
+{
+"pos": 6,
+"n": "Atlético-GO"
+},
+{
+"pos": 7,
+"n": "CRB"
+},
+{
+"pos": 8,
+"n": "Goiás"
+},
+{
+"pos": 9,
+"n": "Sport"
+},
+{
+"pos": 10,
+"n": "Operário-PR"
+},
+{
+"pos": 11,
+"n": "São Bernardo"
+},
+{
+"pos": 12,
+"n": "Botafogo-SP"
+},
+{
+"pos": 13,
+"n": "Athletic"
+},
+{
+"pos": 14,
+"n": "Cuiabá"
+},
+{
+"pos": 15,
+"n": "Náutico"
+},
+{
+"pos": 16,
+"n": "Ceará"
+},
+{
+"pos": 17,
+"n": "Avaí"
+},
+{
+"pos": 18,
+"n": "Londrina"
+},
+{
+"pos": 19,
+"n": "América-MG"
+},
+{
+"pos": 20,
+"n": "Ponte Preta"
+}
+],
+"2026C": [
+{
+"pos": 1,
+"n": "Maringá"
+},
+{
+"pos": 2,
+"n": "Ferroviária"
+},
+{
+"pos": 3,
+"n": "Santa Cruz"
+},
+{
+"pos": 4,
+"n": "Inter de Limeira"
+},
+{
+"pos": 5,
+"n": "Brusque"
+},
+{
+"pos": 6,
+"n": "Botafogo-PB"
+},
+{
+"pos": 7,
+"n": "Floresta-CE"
+},
+{
+"pos": 8,
+"n": "Paysandu"
+},
+{
+"pos": 9,
+"n": "Ypiranga de Erechim"
+},
+{
+"pos": 10,
+"n": "Guarani-SP"
+},
+{
+"pos": 11,
+"n": "Figueirense"
+},
+{
+"pos": 12,
+"n": "Maranhão"
+},
+{
+"pos": 13,
+"n": "Amazonas"
+},
+{
+"pos": 14,
+"n": "Caxias"
+},
+{
+"pos": 15,
+"n": "Ituano"
+},
+{
+"pos": 16,
+"n": "Volta Redonda"
+},
+{
+"pos": 17,
+"n": "Barra-SC"
+},
+{
+"pos": 18,
+"n": "Anápolis"
+},
+{
+"pos": 19,
+"n": "Itabaiana"
+},
+{
+"pos": 20,
+"n": "Confiança"
+}
+],
+"2026D": [
+{
+"pos": 1,
+"n": "Uberlândia"
+},
+{
+"pos": 2,
+"n": "ASA"
+},
+{
+"pos": 3,
+"n": "Gama"
+},
+{
+"pos": 4,
+"n": "ABC"
+},
+{
+"pos": 5,
+"n": "Goiatuba"
+},
+{
+"pos": 6,
+"n": "Nacional-AM"
+},
+{
+"pos": 7,
+"n": "CSA"
+},
+{
+"pos": 8,
+"n": "São José-POA"
+},
+{
+"pos": 9,
+"n": "América-RN"
+},
+{
+"pos": 10,
+"n": "Portuguesa-SP"
+},
+{
+"pos": 11,
+"n": "Iguatu"
+},
+{
+"pos": 12,
+"n": "Ferroviário-CE"
+},
+{
+"pos": 13,
+"n": "Treze"
+},
+{
+"pos": 14,
+"n": "Luverdense"
+},
+{
+"pos": 15,
+"n": "Cianorte"
+},
+{
+"pos": 16,
+"n": "São Luiz-RS"
+},
+{
+"pos": 17,
+"n": "Capital"
+},
+{
+"pos": 18,
+"n": "Manauara"
+},
+{
+"pos": 19,
+"n": "Guaporé"
+},
+{
+"pos": 20,
+"n": "Águia de Marabá"
+},
+{
+"pos": 21,
+"n": "Trem"
+},
+{
+"pos": 22,
+"n": "Gazin Porto Velho"
+},
+{
+"pos": 23,
+"n": "Serra Branca"
+},
+{
+"pos": 24,
+"n": "XV de Piracicaba"
+},
+{
+"pos": 25,
+"n": "Betim Futebol"
+},
+{
+"pos": 26,
+"n": "Marcílio Dias"
+},
+{
+"pos": 27,
+"n": "CRAC"
+},
+{
+"pos": 28,
+"n": "Portuguesa-RJ"
+},
+{
+"pos": 29,
+"n": "Imperatriz"
+},
+{
+"pos": 30,
+"n": "Velo Clube"
+},
+{
+"pos": 31,
+"n": "Ivinhema"
+},
+{
+"pos": 32,
+"n": "Maguary-PE"
+},
+{
+"pos": 33,
+"n": "Santa Catarina"
+},
+{
+"pos": 34,
+"n": "Blumenau"
+},
+{
+"pos": 35,
+"n": "Maracanã-CE"
+},
+{
+"pos": 36,
+"n": "Piauí"
+},
+{
+"pos": 37,
+"n": "Araguaína"
+},
+{
+"pos": 38,
+"n": "Água Santa"
+},
+{
+"pos": 39,
+"n": "Vitória-ES"
+},
+{
+"pos": 40,
+"n": "Democrata-GV"
+},
+{
+"pos": 41,
+"n": "Tombense"
+},
+{
+"pos": 42,
+"n": "Juazeirense"
+},
+{
+"pos": 43,
+"n": "Parnahyba"
+},
+{
+"pos": 44,
+"n": "Independência"
+},
+{
+"pos": 45,
+"n": "Sampaio Corrêa"
+},
+{
+"pos": 46,
+"n": "FC Cascavel"
+},
+{
+"pos": 47,
+"n": "Noroeste"
+},
+{
+"pos": 48,
+"n": "Sergipe"
+},
+{
+"pos": 49,
+"n": "São Joseense"
+},
+{
+"pos": 50,
+"n": "São Raimundo-RR"
+},
+{
+"pos": 51,
+"n": "Brasiliense"
+},
+{
+"pos": 52,
+"n": "Rio Branco"
+},
+{
+"pos": 53,
+"n": "Fluminense-PI"
+},
+{
+"pos": 54,
+"n": "Central"
+},
+{
+"pos": 55,
+"n": "Lagarto"
+},
+{
+"pos": 56,
+"n": "Aparecidense"
+},
+{
+"pos": 57,
+"n": "Tuna Luso"
+},
+{
+"pos": 58,
+"n": "Jacuipense"
+},
+{
+"pos": 59,
+"n": "Ceilândia"
+},
+{
+"pos": 60,
+"n": "Sampaio Corrêa-RJ"
+},
+{
+"pos": 61,
+"n": "Monte Roraima"
+},
+{
+"pos": 62,
+"n": "America"
+},
+{
+"pos": 63,
+"n": "Altos"
+},
+{
+"pos": 64,
+"n": "Mixto"
+},
+{
+"pos": 65,
+"n": "Joinville"
+},
+{
+"pos": 66,
+"n": "Tocantinópolis"
+},
+{
+"pos": 67,
+"n": "ABECAT"
+},
+{
+"pos": 68,
+"n": "Retrô"
+},
+{
+"pos": 69,
+"n": "Primavera AC"
+},
+{
+"pos": 70,
+"n": "Nova Iguaçu"
+},
+{
+"pos": 71,
+"n": "Madureira"
+},
+{
+"pos": 72,
+"n": "Maricá"
+},
+{
+"pos": 73,
+"n": "Sousa-PB"
+},
+{
+"pos": 74,
+"n": "Porto-BA"
+},
+{
+"pos": 75,
+"n": "Galvez"
+},
+{
+"pos": 76,
+"n": "Tirol"
+},
+{
+"pos": 77,
+"n": "Brasil de Pelotas"
+},
+{
+"pos": 78,
+"n": "Manaus"
+},
+{
+"pos": 79,
+"n": "Operário-MS"
+},
+{
+"pos": 80,
+"n": "Azuriz"
+},
+{
+"pos": 81,
+"n": "União Rondonópolis"
+},
+{
+"pos": 82,
+"n": "CSE"
+},
+{
+"pos": 83,
+"n": "Moto Club"
+},
+{
+"pos": 84,
+"n": "Decisão Goiana"
+},
+{
+"pos": 85,
+"n": "Real Noroeste"
+},
+{
+"pos": 86,
+"n": "Pouso Alegre"
+},
+{
+"pos": 87,
+"n": "Atlético Cearense"
+},
+{
+"pos": 88,
+"n": "GAS"
+},
+{
+"pos": 89,
+"n": "Operário CEOV"
+},
+{
+"pos": 90,
+"n": "Atlético-BA"
+},
+{
+"pos": 91,
+"n": "Guarany de Bagé"
+},
+{
+"pos": 92,
+"n": "Oratório"
+},
+{
+"pos": 93,
+"n": "IAPE"
+},
+{
+"pos": 94,
+"n": "Laguna SAF"
+},
+{
+"pos": 95,
+"n": "Inhumas"
+},
+{
+"pos": 96,
+"n": "Humaitá"
+}
+]
+}
+}
