@@ -1,0 +1,16 @@
+{
+  "_obs": "Nome como a FPF escreve -> nome canônico do repo. Os canônicos seguem o brasileiro-2026 (sufixo de UF onde lá existe), para que o cruzamento com as classificações nacionais seja por igualdade. Esta tabela só tem os nomes OBSERVADOS até 14/11/2026; a primeira coleta completa lista os que faltam como aviso, e eles entram aqui à mão.",
+  "nomes": {
+    "Palmeiras": "Palmeiras",
+    "Corinthians": "Corinthians",
+    "São Paulo": "São Paulo",
+    "Santos": "Santos",
+    "Red Bull Bragantino": "Red Bull Bragantino",
+    "Grêmio Novorizontino": "Novorizontino",
+    "Portuguesa SAF": "Portuguesa-SP",
+    "Capivariano": "Capivariano",
+    "São Bernardo FC": "São Bernardo",
+    "Monte Azul": "Monte Azul",
+    "São Caetano": "São Caetano"
+  }
+}

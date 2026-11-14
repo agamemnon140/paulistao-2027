@@ -1,0 +1,101 @@
+{
+ "_obs": "AMOSTRA RECONSTRUÍDA, não é captura literal. Observados em ListarTabela.ashx (A1 2026, rodada 9) em 14/11/2026: a estrutura da resposta, os nomes dos campos, os times como a FPF escreve, os placares, as datas, a fase, os grupos e o IdJogo 82341. Todo o resto é fictício (os outros três IdJogo, Numero, NumFase, horários, municípios). Trocar por uma captura real na primeira coleta.",
+ "Codigo": 0,
+ "Sucesso": true,
+ "Mensagem": "",
+ "Total": 4,
+ "Retorno": {
+  "listData": [],
+  "listRodada": [
+   {
+    "Rodada": "9"
+   }
+  ],
+  "listTabela": [
+   {
+    "IdJogo": 82338,
+    "Data": "21/02/2026",
+    "Horario": "18h30",
+    "Numero": 65,
+    "NomePopularMandante": "Red Bull Bragantino",
+    "ResultadoMandante": 1,
+    "NomePopularVisitante": "São Paulo",
+    "ResultadoVisitante": 2,
+    "Estadio": "",
+    "NomePopularEstadio": "",
+    "Municipio": "Bragança Paulista",
+    "Rodada": 9,
+    "Grupo": "C",
+    "GrupoObservacao": "",
+    "Fase": "QUARTAS DE FINAL",
+    "NumFase": 2,
+    "LinkSumula": "x",
+    "Suspencao": "LIBERADO",
+    "Adiado": false
+   },
+   {
+    "IdJogo": 82339,
+    "Data": "21/02/2026",
+    "Horario": "20h30",
+    "Numero": 66,
+    "NomePopularMandante": "Palmeiras",
+    "ResultadoMandante": 4,
+    "NomePopularVisitante": "Capivariano",
+    "ResultadoVisitante": 0,
+    "Estadio": "",
+    "NomePopularEstadio": "",
+    "Municipio": "",
+    "Rodada": 9,
+    "Grupo": "B",
+    "GrupoObservacao": "",
+    "Fase": "QUARTAS DE FINAL",
+    "NumFase": 2,
+    "LinkSumula": "x",
+    "Suspencao": "LIBERADO",
+    "Adiado": false
+   },
+   {
+    "IdJogo": 82340,
+    "Data": "22/02/2026",
+    "Horario": "16h00",
+    "Numero": 67,
+    "NomePopularMandante": "Grêmio Novorizontino",
+    "ResultadoMandante": 2,
+    "NomePopularVisitante": "Santos",
+    "ResultadoVisitante": 1,
+    "Estadio": "",
+    "NomePopularEstadio": "",
+    "Municipio": "Novo Horizonte",
+    "Rodada": 9,
+    "Grupo": "A",
+    "GrupoObservacao": "",
+    "Fase": "QUARTAS DE FINAL",
+    "NumFase": 2,
+    "LinkSumula": "x",
+    "Suspencao": "LIBERADO",
+    "Adiado": false
+   },
+   {
+    "IdJogo": 82341,
+    "Data": "22/02/2026",
+    "Horario": "20h30",
+    "Numero": 68,
+    "NomePopularMandante": "Portuguesa SAF",
+    "ResultadoMandante": 1,
+    "NomePopularVisitante": "Corinthians",
+    "ResultadoVisitante": 1,
+    "Estadio": "",
+    "NomePopularEstadio": "",
+    "Municipio": "São Paulo",
+    "Rodada": 9,
+    "Grupo": "D",
+    "GrupoObservacao": "",
+    "Fase": "QUARTAS DE FINAL",
+    "NumFase": 2,
+    "LinkSumula": "x",
+    "Suspencao": "LIBERADO",
+    "Adiado": false
+   }
+  ]
+ }
+}

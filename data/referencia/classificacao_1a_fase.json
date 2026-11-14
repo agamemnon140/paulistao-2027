@@ -1,0 +1,47 @@
+{
+  "_obs": "Classificações publicadas da 1ª fase, usadas só para RECONCILIAR a coleta da FPF (scripts/coletar_fpf.mjs). Fonte secundária, transcrita em 14/11/2026; se a coleta oficial divergir daqui, investigar antes de confiar em qualquer um dos lados. Faltam 2022 a 2025.",
+  "2026": {
+    "A1": {
+      "fonte": "RSSSF Brasil (rsssfbrasil.com/tablessz/sp2026.htm), igual à Wikipedia EN",
+      "tabela": [
+        { "time": "Novorizontino", "P": 16, "V": 5, "E": 1, "D": 2, "GP": 16, "GC": 10 },
+        { "time": "Palmeiras", "P": 16, "V": 5, "E": 1, "D": 2, "GP": 8, "GC": 7 },
+        { "time": "Red Bull Bragantino", "P": 16, "V": 4, "E": 4, "D": 0, "GP": 14, "GC": 2 },
+        { "time": "Portuguesa-SP", "P": 15, "V": 5, "E": 0, "D": 3, "GP": 11, "GC": 7 },
+        { "time": "Corinthians", "P": 14, "V": 4, "E": 2, "D": 2, "GP": 10, "GC": 6 },
+        { "time": "São Paulo", "P": 13, "V": 4, "E": 1, "D": 3, "GP": 11, "GC": 12 },
+        { "time": "Capivariano", "P": 13, "V": 4, "E": 1, "D": 3, "GP": 7, "GC": 10 },
+        { "time": "Santos", "P": 12, "V": 3, "E": 3, "D": 2, "GP": 12, "GC": 7 },
+        { "time": "Guarani", "P": 12, "V": 3, "E": 3, "D": 2, "GP": 6, "GC": 7 },
+        { "time": "Botafogo-SP", "P": 11, "V": 3, "E": 2, "D": 3, "GP": 5, "GC": 9 },
+        { "time": "Mirassol", "P": 8, "V": 2, "E": 2, "D": 4, "GP": 10, "GC": 8 },
+        { "time": "Primavera-SP", "P": 8, "V": 2, "E": 2, "D": 4, "GP": 14, "GC": 15 },
+        { "time": "São Bernardo", "P": 8, "V": 2, "E": 2, "D": 4, "GP": 8, "GC": 10 },
+        { "time": "Noroeste", "P": 8, "V": 1, "E": 5, "D": 2, "GP": 11, "GC": 11 },
+        { "time": "Velo Clube", "P": 5, "V": 1, "E": 2, "D": 5, "GP": 2, "GC": 13 },
+        { "time": "Ponte Preta", "P": 1, "V": 0, "E": 1, "D": 7, "GP": 3, "GC": 14 }
+      ]
+    },
+    "A2": {
+      "fonte": "RSSSF Brasil (rsssfbrasil.com/tablessz/sp2026l2.htm), igual ao Goal.com",
+      "tabela": [
+        { "time": "Água Santa", "P": 31, "V": 10, "E": 1, "D": 4, "GP": 24, "GC": 14 },
+        { "time": "Ferroviária", "P": 28, "V": 8, "E": 4, "D": 3, "GP": 22, "GC": 12 },
+        { "time": "Ituano", "P": 28, "V": 8, "E": 4, "D": 3, "GP": 22, "GC": 14 },
+        { "time": "São José-SP", "P": 27, "V": 8, "E": 3, "D": 4, "GP": 21, "GC": 13 },
+        { "time": "Sertãozinho", "P": 25, "V": 7, "E": 4, "D": 4, "GP": 19, "GC": 19 },
+        { "time": "Votuporanguense", "P": 24, "V": 7, "E": 3, "D": 5, "GP": 16, "GC": 17 },
+        { "time": "Juventus", "P": 23, "V": 6, "E": 5, "D": 4, "GP": 22, "GC": 20 },
+        { "time": "XV de Piracicaba", "P": 22, "V": 6, "E": 4, "D": 5, "GP": 16, "GC": 15 },
+        { "time": "Osasco Sporting", "P": 22, "V": 5, "E": 7, "D": 3, "GP": 22, "GC": 18 },
+        { "time": "Santo André", "P": 18, "V": 5, "E": 3, "D": 7, "GP": 16, "GC": 22 },
+        { "time": "Taubaté", "P": 17, "V": 3, "E": 8, "D": 4, "GP": 22, "GC": 23 },
+        { "time": "Inter de Limeira", "P": 16, "V": 4, "E": 4, "D": 7, "GP": 15, "GC": 18 },
+        { "time": "Linense", "P": 13, "V": 2, "E": 7, "D": 6, "GP": 12, "GC": 18 },
+        { "time": "Monte Azul", "P": 12, "V": 2, "E": 6, "D": 7, "GP": 17, "GC": 22 },
+        { "time": "Grêmio Prudente", "P": 12, "V": 1, "E": 9, "D": 5, "GP": 12, "GC": 16 },
+        { "time": "São Bento", "P": 5, "V": 1, "E": 2, "D": 12, "GP": 8, "GC": 25 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "paulistao-2027",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Simulador Monte Carlo do Campeonato Paulista 2027 (Séries A1 e A2)",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "dourado": "node scripts/gerar_dourado.mjs",
+    "coletar": "node scripts/coletar_fpf.mjs"
+  }
+}

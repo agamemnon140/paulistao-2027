@@ -1,0 +1,59 @@
+name: Coletar temporadas da FPF
+
+# Disparo manual. Baixa temporadas inteiras da fonte oficial e commita data/fpf/.
+# É também o teste de que o runner do GitHub é aceito pelo site da FPF: se a FPF recusar
+# cliente fora de navegador, este passo falha com a mensagem do erro e nada é gravado.
+
+on:
+  workflow_dispatch:
+    inputs:
+      comp:
+        description: 'Competições, separadas por vírgula (A1, A2, A3, COPA_PAULISTA)'
+        default: 'A1,A2'
+      anos:
+        description: 'Ano ou intervalo (ex.: 2026 ou 2022-2026)'
+        default: '2022-2026'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coleta-fpf
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Coletar e reconciliar
+        id: coleta
+        continue-on-error: true
+        env:
+          COMP: ${{ inputs.comp }}
+          ANOS: ${{ inputs.anos }}
+        run: node scripts/coletar_fpf.mjs --comp "$COMP" --anos "$ANOS"
+
+      # Grava o que foi coletado mesmo quando alguma temporada não reconciliou: o dado
+      # bruto é o que permite investigar. O job termina vermelho no passo seguinte.
+      - name: Commit se mudou
+        run: |
+          if [ -n "$(git status --porcelain data/fpf)" ]; then
+            git config user.name  "coleta-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/fpf
+            git commit -m "dados: coleta FPF ${{ inputs.comp }} ${{ inputs.anos }} [skip ci]"
+            git push
+          else
+            echo "Sem mudanças."
+          fi
+
+      - name: Falhar se a coleta não fechou
+        if: steps.coleta.outcome == 'failure'
+        run: |
+          echo "::error::A coleta falhou ou alguma temporada não reconciliou; veja o passo 'Coletar e reconciliar'."
+          exit 1
