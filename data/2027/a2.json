@@ -1,0 +1,529 @@
+{
+ "_obs": "Paulistão A2 2027. Turno único: todos se enfrentam uma vez (120 jogos), mando ainda não publicado. Participantes segundo a imprensa (DGABC, 28/10/2026); o regulamento de 2027 não saiu.",
+ "sigla": "A2",
+ "ano": 2027,
+ "times": [
+  "Água Santa",
+  "Inter de Limeira",
+  "Ituano",
+  "Linense",
+  "Marília",
+  "Monte Azul",
+  "Osasco Sporting",
+  "Ponte Preta",
+  "Portuguesa Santista",
+  "Santo André",
+  "São José-SP",
+  "Sertãozinho",
+  "Taubaté",
+  "Velo Clube",
+  "Votuporanguense",
+  "XV de Piracicaba"
+ ],
+ "confrontos": [
+  [
+   "Água Santa",
+   "Inter de Limeira"
+  ],
+  [
+   "Água Santa",
+   "Ituano"
+  ],
+  [
+   "Água Santa",
+   "Linense"
+  ],
+  [
+   "Água Santa",
+   "Marília"
+  ],
+  [
+   "Água Santa",
+   "Monte Azul"
+  ],
+  [
+   "Água Santa",
+   "Osasco Sporting"
+  ],
+  [
+   "Água Santa",
+   "Ponte Preta"
+  ],
+  [
+   "Água Santa",
+   "Portuguesa Santista"
+  ],
+  [
+   "Água Santa",
+   "Santo André"
+  ],
+  [
+   "Água Santa",
+   "São José-SP"
+  ],
+  [
+   "Água Santa",
+   "Sertãozinho"
+  ],
+  [
+   "Água Santa",
+   "Taubaté"
+  ],
+  [
+   "Água Santa",
+   "Velo Clube"
+  ],
+  [
+   "Água Santa",
+   "Votuporanguense"
+  ],
+  [
+   "Água Santa",
+   "XV de Piracicaba"
+  ],
+  [
+   "Inter de Limeira",
+   "Ituano"
+  ],
+  [
+   "Inter de Limeira",
+   "Linense"
+  ],
+  [
+   "Inter de Limeira",
+   "Marília"
+  ],
+  [
+   "Inter de Limeira",
+   "Monte Azul"
+  ],
+  [
+   "Inter de Limeira",
+   "Osasco Sporting"
+  ],
+  [
+   "Inter de Limeira",
+   "Ponte Preta"
+  ],
+  [
+   "Inter de Limeira",
+   "Portuguesa Santista"
+  ],
+  [
+   "Inter de Limeira",
+   "Santo André"
+  ],
+  [
+   "Inter de Limeira",
+   "São José-SP"
+  ],
+  [
+   "Inter de Limeira",
+   "Sertãozinho"
+  ],
+  [
+   "Inter de Limeira",
+   "Taubaté"
+  ],
+  [
+   "Inter de Limeira",
+   "Velo Clube"
+  ],
+  [
+   "Inter de Limeira",
+   "Votuporanguense"
+  ],
+  [
+   "Inter de Limeira",
+   "XV de Piracicaba"
+  ],
+  [
+   "Ituano",
+   "Linense"
+  ],
+  [
+   "Ituano",
+   "Marília"
+  ],
+  [
+   "Ituano",
+   "Monte Azul"
+  ],
+  [
+   "Ituano",
+   "Osasco Sporting"
+  ],
+  [
+   "Ituano",
+   "Ponte Preta"
+  ],
+  [
+   "Ituano",
+   "Portuguesa Santista"
+  ],
+  [
+   "Ituano",
+   "Santo André"
+  ],
+  [
+   "Ituano",
+   "São José-SP"
+  ],
+  [
+   "Ituano",
+   "Sertãozinho"
+  ],
+  [
+   "Ituano",
+   "Taubaté"
+  ],
+  [
+   "Ituano",
+   "Velo Clube"
+  ],
+  [
+   "Ituano",
+   "Votuporanguense"
+  ],
+  [
+   "Ituano",
+   "XV de Piracicaba"
+  ],
+  [
+   "Linense",
+   "Marília"
+  ],
+  [
+   "Linense",
+   "Monte Azul"
+  ],
+  [
+   "Linense",
+   "Osasco Sporting"
+  ],
+  [
+   "Linense",
+   "Ponte Preta"
+  ],
+  [
+   "Linense",
+   "Portuguesa Santista"
+  ],
+  [
+   "Linense",
+   "Santo André"
+  ],
+  [
+   "Linense",
+   "São José-SP"
+  ],
+  [
+   "Linense",
+   "Sertãozinho"
+  ],
+  [
+   "Linense",
+   "Taubaté"
+  ],
+  [
+   "Linense",
+   "Velo Clube"
+  ],
+  [
+   "Linense",
+   "Votuporanguense"
+  ],
+  [
+   "Linense",
+   "XV de Piracicaba"
+  ],
+  [
+   "Marília",
+   "Monte Azul"
+  ],
+  [
+   "Marília",
+   "Osasco Sporting"
+  ],
+  [
+   "Marília",
+   "Ponte Preta"
+  ],
+  [
+   "Marília",
+   "Portuguesa Santista"
+  ],
+  [
+   "Marília",
+   "Santo André"
+  ],
+  [
+   "Marília",
+   "São José-SP"
+  ],
+  [
+   "Marília",
+   "Sertãozinho"
+  ],
+  [
+   "Marília",
+   "Taubaté"
+  ],
+  [
+   "Marília",
+   "Velo Clube"
+  ],
+  [
+   "Marília",
+   "Votuporanguense"
+  ],
+  [
+   "Marília",
+   "XV de Piracicaba"
+  ],
+  [
+   "Monte Azul",
+   "Osasco Sporting"
+  ],
+  [
+   "Monte Azul",
+   "Ponte Preta"
+  ],
+  [
+   "Monte Azul",
+   "Portuguesa Santista"
+  ],
+  [
+   "Monte Azul",
+   "Santo André"
+  ],
+  [
+   "Monte Azul",
+   "São José-SP"
+  ],
+  [
+   "Monte Azul",
+   "Sertãozinho"
+  ],
+  [
+   "Monte Azul",
+   "Taubaté"
+  ],
+  [
+   "Monte Azul",
+   "Velo Clube"
+  ],
+  [
+   "Monte Azul",
+   "Votuporanguense"
+  ],
+  [
+   "Monte Azul",
+   "XV de Piracicaba"
+  ],
+  [
+   "Osasco Sporting",
+   "Ponte Preta"
+  ],
+  [
+   "Osasco Sporting",
+   "Portuguesa Santista"
+  ],
+  [
+   "Osasco Sporting",
+   "Santo André"
+  ],
+  [
+   "Osasco Sporting",
+   "São José-SP"
+  ],
+  [
+   "Osasco Sporting",
+   "Sertãozinho"
+  ],
+  [
+   "Osasco Sporting",
+   "Taubaté"
+  ],
+  [
+   "Osasco Sporting",
+   "Velo Clube"
+  ],
+  [
+   "Osasco Sporting",
+   "Votuporanguense"
+  ],
+  [
+   "Osasco Sporting",
+   "XV de Piracicaba"
+  ],
+  [
+   "Ponte Preta",
+   "Portuguesa Santista"
+  ],
+  [
+   "Ponte Preta",
+   "Santo André"
+  ],
+  [
+   "Ponte Preta",
+   "São José-SP"
+  ],
+  [
+   "Ponte Preta",
+   "Sertãozinho"
+  ],
+  [
+   "Ponte Preta",
+   "Taubaté"
+  ],
+  [
+   "Ponte Preta",
+   "Velo Clube"
+  ],
+  [
+   "Ponte Preta",
+   "Votuporanguense"
+  ],
+  [
+   "Ponte Preta",
+   "XV de Piracicaba"
+  ],
+  [
+   "Portuguesa Santista",
+   "Santo André"
+  ],
+  [
+   "Portuguesa Santista",
+   "São José-SP"
+  ],
+  [
+   "Portuguesa Santista",
+   "Sertãozinho"
+  ],
+  [
+   "Portuguesa Santista",
+   "Taubaté"
+  ],
+  [
+   "Portuguesa Santista",
+   "Velo Clube"
+  ],
+  [
+   "Portuguesa Santista",
+   "Votuporanguense"
+  ],
+  [
+   "Portuguesa Santista",
+   "XV de Piracicaba"
+  ],
+  [
+   "Santo André",
+   "São José-SP"
+  ],
+  [
+   "Santo André",
+   "Sertãozinho"
+  ],
+  [
+   "Santo André",
+   "Taubaté"
+  ],
+  [
+   "Santo André",
+   "Velo Clube"
+  ],
+  [
+   "Santo André",
+   "Votuporanguense"
+  ],
+  [
+   "Santo André",
+   "XV de Piracicaba"
+  ],
+  [
+   "São José-SP",
+   "Sertãozinho"
+  ],
+  [
+   "São José-SP",
+   "Taubaté"
+  ],
+  [
+   "São José-SP",
+   "Velo Clube"
+  ],
+  [
+   "São José-SP",
+   "Votuporanguense"
+  ],
+  [
+   "São José-SP",
+   "XV de Piracicaba"
+  ],
+  [
+   "Sertãozinho",
+   "Taubaté"
+  ],
+  [
+   "Sertãozinho",
+   "Velo Clube"
+  ],
+  [
+   "Sertãozinho",
+   "Votuporanguense"
+  ],
+  [
+   "Sertãozinho",
+   "XV de Piracicaba"
+  ],
+  [
+   "Taubaté",
+   "Velo Clube"
+  ],
+  [
+   "Taubaté",
+   "Votuporanguense"
+  ],
+  [
+   "Taubaté",
+   "XV de Piracicaba"
+  ],
+  [
+   "Velo Clube",
+   "Votuporanguense"
+  ],
+  [
+   "Velo Clube",
+   "XV de Piracicaba"
+  ],
+  [
+   "Votuporanguense",
+   "XV de Piracicaba"
+  ]
+ ],
+ "tabela": null,
+ "formato": {
+  "classificados": 8,
+  "rebaixados": 2,
+  "quartas": "idaVolta",
+  "semis": "idaVolta",
+  "final": "idaVolta",
+  "premio": "acesso"
+ },
+ "premissas": [
+  "mata-mata em ida e volta com pênaltis, volta na casa da melhor campanha (formato vem de uma única matéria)",
+  "sobem os dois finalistas"
+ ],
+ "gols": {
+  "liga": {
+   "total": 2.31,
+   "pesoCasa": 0.58
+  },
+  "mataMata": {
+   "total": 2.31,
+   "pesoCasa": 0.65
+  },
+  "_obs": "total = média observada na 1ª fase da A2 de 2022 a 2026 (600 jogos). pesoCasa herdado do REPORT do brasileiro-2026; só muda se o backtest medir viés de casa significativo."
+ }
+}

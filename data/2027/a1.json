@@ -1,0 +1,330 @@
+{
+ "_obs": "Paulistão A1 2027. Confrontos do sorteio de 10/11/2026 (Flashscore e TVT News coincidem); cada par aparece uma vez, SEM mando: a tabela com mandos e ordem das rodadas é esperada até meados de dezembro. Quando sair, vira o campo `tabela` e o sorteio de mando deixa de ser usado.",
+ "sigla": "A1",
+ "ano": 2027,
+ "times": [
+  "Palmeiras",
+  "Corinthians",
+  "São Paulo",
+  "Santos",
+  "Novorizontino",
+  "Red Bull Bragantino",
+  "Portuguesa-SP",
+  "Capivariano",
+  "Guarani",
+  "Botafogo-SP",
+  "Mirassol",
+  "Primavera-SP",
+  "São Bernardo",
+  "Noroeste",
+  "Juventus",
+  "Ferroviária"
+ ],
+ "potes": {
+  "A": [
+   "Palmeiras",
+   "Corinthians",
+   "São Paulo",
+   "Santos"
+  ],
+  "B": [
+   "Novorizontino",
+   "Red Bull Bragantino",
+   "Portuguesa-SP",
+   "Capivariano"
+  ],
+  "C": [
+   "Guarani",
+   "Botafogo-SP",
+   "Mirassol",
+   "Primavera-SP"
+  ],
+  "D": [
+   "São Bernardo",
+   "Noroeste",
+   "Juventus",
+   "Ferroviária"
+  ]
+ },
+ "confrontos": [
+  [
+   "Palmeiras",
+   "Corinthians"
+  ],
+  [
+   "Palmeiras",
+   "São Paulo"
+  ],
+  [
+   "Palmeiras",
+   "Santos"
+  ],
+  [
+   "Palmeiras",
+   "Red Bull Bragantino"
+  ],
+  [
+   "Palmeiras",
+   "Capivariano"
+  ],
+  [
+   "Palmeiras",
+   "Guarani"
+  ],
+  [
+   "Palmeiras",
+   "Primavera-SP"
+  ],
+  [
+   "Palmeiras",
+   "Ferroviária"
+  ],
+  [
+   "Corinthians",
+   "São Paulo"
+  ],
+  [
+   "Corinthians",
+   "Santos"
+  ],
+  [
+   "Corinthians",
+   "Novorizontino"
+  ],
+  [
+   "Corinthians",
+   "Capivariano"
+  ],
+  [
+   "Corinthians",
+   "Botafogo-SP"
+  ],
+  [
+   "Corinthians",
+   "Primavera-SP"
+  ],
+  [
+   "Corinthians",
+   "Noroeste"
+  ],
+  [
+   "São Paulo",
+   "Santos"
+  ],
+  [
+   "São Paulo",
+   "Novorizontino"
+  ],
+  [
+   "São Paulo",
+   "Portuguesa-SP"
+  ],
+  [
+   "São Paulo",
+   "Botafogo-SP"
+  ],
+  [
+   "São Paulo",
+   "Mirassol"
+  ],
+  [
+   "São Paulo",
+   "São Bernardo"
+  ],
+  [
+   "Santos",
+   "Red Bull Bragantino"
+  ],
+  [
+   "Santos",
+   "Portuguesa-SP"
+  ],
+  [
+   "Santos",
+   "Guarani"
+  ],
+  [
+   "Santos",
+   "Mirassol"
+  ],
+  [
+   "Santos",
+   "Juventus"
+  ],
+  [
+   "Novorizontino",
+   "Red Bull Bragantino"
+  ],
+  [
+   "Novorizontino",
+   "Portuguesa-SP"
+  ],
+  [
+   "Novorizontino",
+   "Capivariano"
+  ],
+  [
+   "Novorizontino",
+   "Botafogo-SP"
+  ],
+  [
+   "Novorizontino",
+   "São Bernardo"
+  ],
+  [
+   "Novorizontino",
+   "Juventus"
+  ],
+  [
+   "Red Bull Bragantino",
+   "Portuguesa-SP"
+  ],
+  [
+   "Red Bull Bragantino",
+   "Capivariano"
+  ],
+  [
+   "Red Bull Bragantino",
+   "Guarani"
+  ],
+  [
+   "Red Bull Bragantino",
+   "Noroeste"
+  ],
+  [
+   "Red Bull Bragantino",
+   "Ferroviária"
+  ],
+  [
+   "Portuguesa-SP",
+   "Capivariano"
+  ],
+  [
+   "Portuguesa-SP",
+   "Mirassol"
+  ],
+  [
+   "Portuguesa-SP",
+   "Juventus"
+  ],
+  [
+   "Portuguesa-SP",
+   "Ferroviária"
+  ],
+  [
+   "Capivariano",
+   "Primavera-SP"
+  ],
+  [
+   "Capivariano",
+   "São Bernardo"
+  ],
+  [
+   "Capivariano",
+   "Noroeste"
+  ],
+  [
+   "Guarani",
+   "Botafogo-SP"
+  ],
+  [
+   "Guarani",
+   "Mirassol"
+  ],
+  [
+   "Guarani",
+   "Primavera-SP"
+  ],
+  [
+   "Guarani",
+   "Noroeste"
+  ],
+  [
+   "Guarani",
+   "Ferroviária"
+  ],
+  [
+   "Botafogo-SP",
+   "Mirassol"
+  ],
+  [
+   "Botafogo-SP",
+   "Primavera-SP"
+  ],
+  [
+   "Botafogo-SP",
+   "São Bernardo"
+  ],
+  [
+   "Botafogo-SP",
+   "Juventus"
+  ],
+  [
+   "Mirassol",
+   "Primavera-SP"
+  ],
+  [
+   "Mirassol",
+   "Juventus"
+  ],
+  [
+   "Mirassol",
+   "Ferroviária"
+  ],
+  [
+   "Primavera-SP",
+   "São Bernardo"
+  ],
+  [
+   "Primavera-SP",
+   "Noroeste"
+  ],
+  [
+   "São Bernardo",
+   "Noroeste"
+  ],
+  [
+   "São Bernardo",
+   "Juventus"
+  ],
+  [
+   "São Bernardo",
+   "Ferroviária"
+  ],
+  [
+   "Noroeste",
+   "Juventus"
+  ],
+  [
+   "Noroeste",
+   "Ferroviária"
+  ],
+  [
+   "Juventus",
+   "Ferroviária"
+  ]
+ ],
+ "tabela": null,
+ "formato": {
+  "classificados": 8,
+  "rebaixados": 2,
+  "quartas": "unico",
+  "semis": "unico",
+  "final": "idaVolta",
+  "premio": "titulo"
+ },
+ "premissas": [
+  "final em ida e volta (a FPF ainda não confirmou)"
+ ],
+ "gols": {
+  "liga": {
+   "total": 2.31,
+   "pesoCasa": 0.58
+  },
+  "mataMata": {
+   "total": 2.31,
+   "pesoCasa": 0.65
+  },
+  "_obs": "total = média observada na 1ª fase do A1 de 2022 a 2026 (448 jogos). pesoCasa herdado do REPORT do brasileiro-2026 (0,58 liga, 0,65 mata-mata); só muda se o backtest medir viés de casa significativo."
+ }
+}

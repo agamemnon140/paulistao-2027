@@ -15,9 +15,10 @@
 // competição só visível com o campeonato em andamento. Até lá, quem avançou num empate de
 // mata-mata se deduz de quem aparece na fase seguinte (ver `classificadoPorFaseSeguinte`).
 //
-// Medido em 14/11/2026: o site responde HTTP 403 ao runner do GitHub Actions em todas as
-// chamadas, e normalmente a um navegador. Se aceita este coletor rodando de um computador
-// comum ainda não foi testado.
+// Medido em 14/11/2026: o site responde HTTP 403 a quem não é navegador — ao runner do
+// GitHub Actions e a este coletor rodando num computador comum — e normalmente a um
+// navegador. `buscarJsonPadrao` portanto não funciona hoje; as funções de normalização,
+// conferência e reconciliação valem para qualquer caminho que traga o JSON.
 
 export const FPF_BASE = 'https://www.futebolpaulista.com.br/Handlers/Competicoes/';
 

@@ -12,7 +12,7 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 | Núcleo do motor (`engine/core.mjs`, `engine/liga.mjs`) | Portado; paridade com o original verificada |
 | Histórico 2022–2026, A1 e A2 (`data/fpf/`) | 1.184 jogos da fonte oficial; 2026 fecha com as classificações publicadas |
 | Coleta automática pela Action | Bloqueada: a FPF responde 403 ao runner do GitHub |
-| Formato do Paulista (potes, mata-mata, A2) | Não feito |
+| Formato do Paulista (`engine/paulista.mjs`): mando sorteado, desempate, mata-mata, A1 e A2 | Feito; regras conferidas contra o que aconteceu em 2026 |
 | Backtest das sementes | Não feito |
 | Interface, arquivo de previsões, ingestão de 2027 | Não feitos |
 
@@ -28,9 +28,11 @@ node scripts/coletar_fpf.mjs --comp A1,A2 --anos 2022-2026
 ## De onde vêm os dados
 
 A fonte são os handlers JSON do site da FPF (ver `scripts/fpf.mjs`). O site aceita
-navegador e recusa o runner do GitHub Actions com HTTP 403, então o workflow "Coletar
-temporadas da FPF" hoje falha por desenho, e `scripts/coletar_fpf.mjs` só funciona de uma
-máquina que a FPF aceite.
+navegador e recusa com HTTP 403 quem não é navegador: o runner do GitHub Actions e também
+o coletor em Node rodando num computador comum. Por isso o workflow "Coletar temporadas da
+FPF" e `scripts/coletar_fpf.mjs` hoje não leem nada; ficam no repo como a forma canônica
+de ler a fonte no dia em que houver um caminho aceito. Como os resultados de 2027 vão
+entrar está em aberto (decisão 16 em `docs/DECISOES.md`).
 
 O histórico de 2022 a 2026 foi lido dos mesmos handlers dentro de um navegador em
 14/11/2026 e trazido como texto compacto, com três hashes calculados no navegador

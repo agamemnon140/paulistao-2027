@@ -29,7 +29,7 @@ competições, a fonte de dados e a disciplina de avaliação.
 | 13 | Vagas 2028 | Regra de 2027 com divisões nacionais congeladas, rotulada como premissa | O regulamento de 2027 não saiu, e quem estará em cada divisão em 2028 só se sabe no fim de 2027 |
 | 14 | Interface | Edição manual com "1 Simulação", aba Evolução lida do arquivo de previsões, PWA | Herdado do `brasileiro-2026` |
 | 15 | Arquivo de previsões | `predictions.jsonl` desde a primeira projeção | REPORT §15.1: é a única coisa que não dá para fazer retroativamente |
-| 16 | Ingestão | **Reaberta em 14/11/2026.** O plano era uma Action no desenho do `brasileiro-2026`, mas a FPF responde 403 ao runner do GitHub. Falta escolher entre coletor rodando numa máquina que a FPF aceite, leitura pelo navegador ou outra fonte | O bloqueio foi medido na primeira execução do workflow de coleta |
+| 16 | Ingestão | **Adiada em 14/11/2026**; decidir antes de 10/01/2027. A FPF responde 403 ao runner do GitHub e também ao coletor em Node num computador comum, e o app publicado não lê a FPF direto (CORS); só um navegador lê a fonte. Restrição: a solução não pode depender de trabalho manual do dono a cada rodada. Candidatas: tarefa agendada lendo pelo navegador, navegador automatizado, outra fonte | Os três bloqueios foram medidos; o simulador não depende dessa escolha para ser construído |
 
 Fora da primeira entrega: botão de atualizar pelo app, H2H, valor de mercado como semente.
 
@@ -75,8 +75,10 @@ clubes da Série A.
 - Responde sem cookies. Tem A1 e A2 de 2022 a 2026 com o mata-mata; 2027 ainda vazio.
 - Sem pênaltis neste handler; existem em `Handlers/Placar/PlacarOnline.ashx`, que exige um
   código por competição só visível com o campeonato em andamento.
-- **Recusa o runner do GitHub Actions com HTTP 403** em todas as chamadas (execução de
-  14/11/2026). Pelo navegador responde normalmente.
+- **Recusa clientes que não são navegador com HTTP 403**: o runner do GitHub Actions e o
+  coletor em Node num computador comum (os dois medidos em 14/11/2026). Pelo navegador
+  responde normalmente, inclusive abrindo o endereço do handler numa aba. Uma página de
+  outro domínio não consegue ler a resposta (CORS).
 - Devolve o nome atual do clube também nas temporadas antigas.
 
 **Histórico coletado.** 1.184 jogos (A1 e A2, 2022 a 2026), lidos dos handlers num
@@ -86,7 +88,7 @@ RSSSF. No conjunto: mandante vence 41,7%, empate 30,5%, visitante 27,8%; 2,28 go
 
 ## O que ainda não se sabe
 
-- Se a FPF aceita o coletor em Node rodando de um computador comum (fora de datacenter). Não testado.
+- Como os resultados de 2027 vão entrar sem trabalho manual (decisão 16).
 - Como o handler representa um jogo ainda não disputado (não havia nenhum para observar).
 - A escada nacional de 2026, que só fecha em dezembro.
 - Se cerca de 1.150 jogos separam as ordenações de semente. O REPORT sugere que não; a
