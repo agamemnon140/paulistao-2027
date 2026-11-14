@@ -31,7 +31,53 @@ competições, a fonte de dados e a disciplina de avaliação.
 | 15 | Arquivo de previsões | `predictions.jsonl` desde a primeira projeção | REPORT §15.1: é a única coisa que não dá para fazer retroativamente |
 | 16 | Ingestão | **Adiada em 14/11/2026**; decidir antes de 10/01/2027. A FPF responde 403 ao runner do GitHub e também ao coletor em Node num computador comum, e o app publicado não lê a FPF direto (CORS); só um navegador lê a fonte. Restrição: a solução não pode depender de trabalho manual do dono a cada rodada. Candidatas: tarefa agendada lendo pelo navegador, navegador automatizado, outra fonte | Os três bloqueios foram medidos; o simulador não depende dessa escolha para ser construído |
 
+| 17 | Semente (**proposta, aguardando confirmação**) | `brasileiro` nas duas divisões: colocação nacional do ano anterior na escada A→D; quem não tem série nacional fica um degrau abaixo do pior do grupo. Amplitude 1,50 no A1 e 1,25 na A2 | Ver "Leitura do backtest" abaixo |
+| 18 | Mando (**proposta, aguardando confirmação**) | A1 fica como está: 0,58 na 1ª fase, 0,65 no mata-mata. A2 passa a 0,55 na 1ª fase e no mata-mata | No A1 o viés não é significativo; na A2 é, na escolha e na confirmação |
+| 19 | Fora do combinado na decisão 10 (**precisa de decisão**) | Total de gols do mata-mata da A2 (2,31 herdado; 1,84 medido em 62 jogos) e a falta de empates na A2 | O backtest mediu, mas mexer aqui é mudar mais do que semente e mando |
+
 Fora da primeira entrega: botão de atualizar pelo app, H2H, valor de mercado como semente.
+
+## Leitura do backtest (14/11/2026)
+
+Números em [`eval/RELATORIO.md`](../eval/RELATORIO.md); `test/eval.test.mjs` fixa cada
+afirmação abaixo, de modo que o teste quebra se os dados mudarem a leitura.
+
+**A amplitude importa mais do que a ordem.** Com a amplitude do Brasileirão (3,0), semear
+é pior do que não semear, nas duas divisões. O ótimo fica entre 1,25 e 1,75: com 1,50, o
+melhor em casa contra o pior vence 69% das vezes; com 3,0 o modelo diria 94%.
+
+**A1.** As quatro sementes batem "todos iguais" nos quatro anos da escolha, todas com IC
+fora do zero. `composta` tem o menor Brier, mas empata com `brasileiro` (Δ +0,0014, IC
+de −0,0045 a +0,0076) e perde dela em 2026; pelo critério da decisão 8, empate vai para a
+mais simples. Contra `divisão`, `brasileiro` ganha em quatro dos cinco anos e empata no
+outro (2022, diferença de 0,0001). A semente `paulista` sozinha é a mais fraca e não bate o piso em 2026. Ou seja:
+o Paulista anterior não acrescenta nada mensurável ao Brasileiro anterior.
+
+**A2.** A escada estadual não ajuda em amplitude nenhuma. A semente nacional ajuda pouco:
+com 1,25 o IC exclui zero na escolha (Δ −0,0069) e nos cinco anos, e 2026 repete o tamanho
+do efeito; com 1,50 o Brier é praticamente o mesmo, mas o IC já cruza zero e só dois dos
+quatro anos batem o piso. Na dúvida, a amplitude menor. De 11 a 14 dos 16 clubes não têm
+série nacional, então a semente só separa uns poucos clubes do resto.
+
+**Mando.** No A1 o viés de casa com 0,58 é de +1,9 ponto (z 0,79): fica. No mata-mata do
+A1, 0,65 subestima um pouco o mandante (−5,8 pontos, z −0,85) e qualquer valor menor
+piora: fica. Na A2, 0,58 exagera o mandante em 5,0 pontos na escolha (z 2,23) e 10,5 em
+2026 (z 2,37). Com 0,55 o viés cai para +1,4 (z 0,65) e o Brier é praticamente o mínimo
+da varredura; 0,55 é também a fatia de gols do mandante medida nos jogos (0,556). Zerar o
+viés pediria 0,54, mas à custa de exagerar o visitante, porque o que falta de fato é
+empate. No mata-mata da A2, 0,65 exagera o mandante em 19,8 pontos (z 3,20).
+
+**O que o backtest mostrou e não foi pedido.** Na 1ª fase da A2 o modelo prevê 5,2 pontos
+de empate a menos do que acontece (z −2,53); o total de gols herdado está certo (2,29
+medido contra 2,31), então é a independência de Poisson, não o λ. Corrigir pede um termo
+de empate, que é mudança de modelo. No mata-mata da A2 saem 1,84 gol por jogo, contra
+2,31 herdado, e 42% de empates.
+
+**O que não foi medido.** RNC: falta a série do ranking de 2022 a 2025. Estado final do
+modelo no Paulista anterior: precisa dos jogos de 2021 (só há a classificação) e de uma
+regra de escala entre divisões; usa a mesma informação da semente `paulista`, a mais
+fraca das quatro, mas isso é expectativa, não medida. A confirmação é uma temporada: em
+2026 nenhum IC exclui zero sozinho.
 
 ## Premissas rotuladas (trocar quando os regulamentos de 2027 saírem)
 
@@ -86,13 +132,17 @@ navegador e transferidos com hash. Todas as temporadas têm 16 clubes e o númer
 jogos por clube; as duas divisões de 2026 fecham com as classificações publicadas pelo
 RSSSF. No conjunto: mandante vence 41,7%, empate 30,5%, visitante 27,8%; 2,28 gols por jogo.
 
+**Dados das sementes.** Classificações nacionais de 2021 a 2025, Séries A a D, lidas da
+Wikipédia por Action (20 de 20; 2025 confere com o `brasileiro-2026`). Classificações da
+1ª fase do A1 e A2 de 2021 e da A3 de 2021 a 2025, da FPF, com hash. Na 1ª fase de 2022 a
+2025: A1 com 2,31 gols por jogo e 56,4% deles do mandante; A2 com 2,29 e 55,6%.
+
 ## O que ainda não se sabe
 
 - Como os resultados de 2027 vão entrar sem trabalho manual (decisão 16).
 - Como o handler representa um jogo ainda não disputado (não havia nenhum para observar).
 - A escada nacional de 2026, que só fecha em dezembro.
-- Se cerca de 1.150 jogos separam as ordenações de semente. O REPORT sugere que não; a
-  amplitude por divisão deve sair bem medida.
+- Se RNC ou o estado final do modelo no Paulista anterior bateriam a semente `brasileiro`.
 
 ## Fontes
 

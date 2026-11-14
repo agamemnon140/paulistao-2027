@@ -1,0 +1,35 @@
+{
+  "_obs": "Clubes paulistas nas séries nacionais. `apelidos` traduz o nome usado na Wikipedia (data/nacional/classificacoes_2021_2025.json) para o canônico do repo; só entram clubes de São Paulo, e homônimos de outros estados (Botafogo, Portuguesa-RJ, São José-POA, Rio Branco, Juventus-SC, Audax Rio...) ficam de fora de propósito. `divisao2026` vem dos dados do app brasileiro-2026 (SA/SB/SC_RANKING e SD_TD), porque a temporada de 2026 ainda não tem classificação final.",
+  "apelidos": {
+    "Palmeiras": "Palmeiras",
+    "Corinthians": "Corinthians",
+    "São Paulo": "São Paulo",
+    "Santos": "Santos",
+    "Red Bull Bragantino": "Red Bull Bragantino",
+    "Mirassol": "Mirassol",
+    "Novorizontino": "Novorizontino",
+    "Grêmio Novorizontino": "Novorizontino",
+    "Guarani": "Guarani",
+    "Guarani-SP": "Guarani",
+    "Ponte Preta": "Ponte Preta",
+    "Botafogo-SP": "Botafogo-SP",
+    "Ituano": "Ituano",
+    "São Bernardo": "São Bernardo",
+    "Ferroviária": "Ferroviária",
+    "Inter de Limeira": "Inter de Limeira",
+    "Portuguesa-SP": "Portuguesa-SP",
+    "Água Santa": "Água Santa",
+    "Santo André": "Santo André",
+    "XV de Piracicaba": "XV de Piracicaba",
+    "São José-SP": "São José-SP",
+    "Monte Azul": "Monte Azul",
+    "Oeste": "Osasco Sporting",
+    "São Bento": "São Bento"
+  },
+  "divisao2026": {
+    "A": ["Palmeiras", "Corinthians", "São Paulo", "Santos", "Red Bull Bragantino", "Mirassol"],
+    "B": ["Novorizontino", "Botafogo-SP", "São Bernardo", "Ponte Preta"],
+    "C": ["Guarani", "Ferroviária", "Ituano", "Inter de Limeira"],
+    "D": ["Portuguesa-SP", "Água Santa", "XV de Piracicaba", "Noroeste", "Velo Clube"]
+  }
+}

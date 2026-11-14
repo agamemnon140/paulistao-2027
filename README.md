@@ -13,7 +13,7 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 | Histórico 2022–2026, A1 e A2 (`data/fpf/`) | 1.184 jogos da fonte oficial; 2026 fecha com as classificações publicadas |
 | Coleta automática pela Action | Bloqueada: a FPF responde 403 ao runner do GitHub |
 | Formato do Paulista (`engine/paulista.mjs`): mando sorteado, desempate, mata-mata, A1 e A2 | Feito; regras conferidas contra o que aconteceu em 2026 |
-| Backtest das sementes | Não feito |
+| Backtest das sementes (`eval/`) | Feito para quatro sementes; resultado em [`eval/RELATORIO.md`](eval/RELATORIO.md). Semente e mando propostos em `docs/DECISOES.md`, aguardando confirmação |
 | Interface, arquivo de previsões, ingestão de 2027 | Não feitos |
 
 ## Rodar
@@ -21,7 +21,8 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 Não há dependências; basta Node 22 ou mais novo.
 
 ```bash
-npm test                                   # paridade com o motor original + leitor da FPF
+npm test                                   # paridade com o motor, leitor da FPF, formato, backtest
+node eval/backtest.mjs                     # refaz eval/out/backtest.json e eval/RELATORIO.md
 node scripts/coletar_fpf.mjs --comp A1,A2 --anos 2022-2026
 ```
 
@@ -48,6 +49,20 @@ Duas coisas para saber ao ler os dados:
   Osasco Sporting desde 2022).
 - No A1 de 2022 e 2023, os jogos de mata-mata com grupo numérico (`01` a `05`) são do
   Troféu do Interior; a chave principal usa grupos com letra.
+
+As sementes do backtest usam mais duas fontes: as classificações nacionais de 2021 a 2025
+(`data/nacional/`, lidas da Wikipédia pelo workflow "Classificações nacionais" e conferidas,
+para 2025, contra o `brasileiro-2026`) e as classificações da 1ª fase do A1 e A2 de 2021 e
+da A3 de 2021 a 2025 (`data/fpf/_transferencia/classificacoes_1a_fase_extra.txt`, da FPF,
+com hash).
+
+## Backtest das sementes
+
+`eval/backtest.mjs` prevê cada jogo de 2022 a 2026 com o estado treinado só nos jogos
+anteriores da temporada, para cada semente candidata e cada amplitude, escolhe em
+2022–2025 e confirma em 2026. `eval/RELATORIO.md` é gerado, não editado: `npm test` falha
+se ele e o código divergirem, e os testes também fixam cada afirmação que
+`docs/DECISOES.md` faz sobre o resultado.
 
 ## Paridade com o motor original
 
@@ -80,3 +95,5 @@ precisa acompanhar.
 - As temporadas de 2022 a 2025 fecham por dentro (16 clubes, número certo de jogos por
   clube), mas só 2026 foi reconciliada com classificação publicada por terceiros.
 - Pênaltis: o handler de tabela não os traz.
+- No backtest, a ordem dos jogos é a da rodada (não há datas), e duas sementes previstas
+  na decisão 9 não foram medidas: RNC e o estado final do modelo no Paulista anterior.

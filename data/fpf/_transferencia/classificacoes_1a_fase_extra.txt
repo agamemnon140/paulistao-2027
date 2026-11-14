@@ -1,0 +1,119 @@
+#A12021 16
+27 8 3 1 28 9|São Paulo
+25 7 4 1 17 9|Corinthians
+23 6 5 1 15 7|Red Bull Bragantino
+21 6 3 3 20 12|Ferroviária
+21 6 3 3 18 10|Palmeiras
+19 5 4 3 17 12|Grêmio Novorizontino
+18 6 0 6 8 12|Inter Limeira
+18 5 3 4 15 15|Mirassol
+14 4 2 6 11 16|Guarani
+13 4 1 7 13 16|Ponte Preta
+13 4 1 7 10 14|Ituano SAF
+13 3 4 5 9 13|Santo André
+13 3 4 5 12 19|Santos
+12 2 6 4 10 15|Botafogo
+9 1 6 5 8 14|São Bento
+3 0 3 9 4 22|São Caetano
+#A22021 16
+36 11 3 1 24 8|Osasco Sporting
+31 8 7 0 22 10|Água Santa
+25 6 7 2 18 13|Rio Claro
+24 6 6 3 16 9|Lemense SAF
+23 5 8 2 17 12|São Bernardo FC
+22 6 4 5 13 17|Red Bull Bragantino II
+22 5 7 3 21 14|Portuguesa SAF
+21 5 6 4 11 10|XV Piracicaba
+20 5 5 5 22 20|Velo Clube
+17 4 5 6 15 19|Juventus SAF
+16 3 7 5 12 17|AA Portuguesa
+14 3 5 7 12 16|Monte Azul
+14 3 5 7 16 22|Taubaté
+14 3 5 7 5 14|Audax
+9 2 3 10 8 22|EC São Bernardo
+8 1 5 9 12 21|Sertãozinho
+#A32021 16
+28 8 4 3 25 14|Noroeste
+27 8 3 4 18 13|Barretos
+27 7 6 2 21 13|Votuporanguense
+27 7 6 2 22 16|São José EC SAF
+24 7 3 5 21 18|Linense
+23 6 5 4 17 11|Marília
+23 6 5 4 17 14|Primavera
+22 7 1 7 30 25|Nacional
+21 6 3 6 21 21|Capivariano
+20 4 8 3 16 15|Desportivo Brasil
+17 4 5 6 11 14|Bandeirante EC
+17 3 8 4 21 18|Comercial RP
+16 4 4 7 14 23|Rio Preto
+13 3 4 8 12 23|Olímpia
+9 1 6 8 11 25|Batatais
+7 0 7 8 11 25|Penapolense
+#A32022 16
+31 9 4 2 28 14|Comercial RP
+30 9 3 3 18 8|Noroeste
+29 9 2 4 19 16|São José EC SAF
+27 8 3 4 15 11|Marília
+27 7 6 2 22 14|EC São Bernardo
+22 6 4 5 17 13|Votuporanguense
+21 6 3 6 20 21|Capivariano
+21 5 6 4 15 14|Suzano
+19 5 4 6 19 18|Bandeirante EC
+19 4 7 4 20 27|Matonense
+17 3 8 4 14 14|Barretos
+16 4 4 7 11 18|Rio Preto
+14 3 5 7 14 18|Desportivo Brasil
+13 2 7 6 11 16|Sertãozinho
+9 2 3 10 8 17|Nacional
+8 1 5 9 8 20|Olímpia
+#A32023 16
+29 9 2 4 25 15|Marília
+27 8 3 4 13 12|São José EC SAF
+27 7 6 2 28 11|Capivariano
+24 7 3 5 21 16|Grêmio Prudente
+24 7 3 5 14 9|Desportivo Brasil
+22 7 1 7 17 16|EC São Bernardo
+21 6 3 6 21 18|Suzano
+20 6 2 7 21 18|Matonense
+20 5 5 5 19 15|Bandeirante EC
+19 5 4 6 24 23|Red Bull Bragantino II
+19 5 4 6 15 21|Rio Preto
+19 4 7 4 11 17|Itapirense
+17 4 5 6 14 19|Votuporanguense
+16 5 1 9 15 26|Sertãozinho
+16 4 4 7 18 29|Barretos
+12 3 3 9 8 19|Audax
+#A32024 16
+32 9 5 1 22 9|Votuporanguense
+30 8 6 1 24 12|EC São Bernardo
+29 9 2 4 19 10|Catanduva FC
+28 9 1 5 30 19|Grêmio Prudente
+27 8 3 4 28 19|Red Bull Bragantino II
+26 8 2 5 14 13|Desportivo Brasil
+21 6 3 6 18 21|Sertãozinho
+21 4 9 2 20 11|Marília
+19 5 4 6 23 22|União São João
+19 5 4 6 18 19|Suzano
+18 4 6 5 22 24|Lemense SAF
+15 4 3 8 13 18|Rio Preto
+15 3 6 6 11 16|Bandeirante EC
+15 2 9 4 19 22|Itapirense
+10 2 4 9 13 21|São Caetano
+1 0 1 14 5 43|Matonense
+#A32025 16
+30 8 6 1 27 14|Monte Azul
+28 8 4 3 24 17|Marília
+25 7 4 4 19 16|Desportivo Brasil
+25 6 7 2 14 8|Sertãozinho
+24 7 3 5 17 17|Catanduva FC
+23 6 5 4 25 15|Rio Branco
+22 6 4 5 18 13|União São João
+20 6 2 7 14 13|Itapirense
+20 5 5 5 12 14|Rio Preto
+17 5 2 8 15 22|Suzano
+17 4 5 6 9 12|XV Jaú
+17 3 8 4 17 19|Francana
+16 3 7 5 11 15|EC São Bernardo
+15 4 3 8 12 20|Bandeirante EC
+13 3 4 8 12 21|Lemense SAF
+11 2 5 8 8 18|Comercial RP
