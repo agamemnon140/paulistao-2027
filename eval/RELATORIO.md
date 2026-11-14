@@ -240,3 +240,98 @@ Semente `brasileiro`, razão 1,50. Viés = previsto − observado, em pontos per
 Brier na escolha por preset de atualização (semente `brasileiro`): conservador 0,6538, base 0,6620, agressivo 0,6858.
 
 Clubes sem série nacional no ano anterior: 2022: 13, 2023: 13, 2024: 14, 2025: 12, 2026: 11 (de 16). Clubes fora da escada estadual: nenhum.
+
+## Promoção e rebaixamento
+
+Quem mudou de divisão rende diferente do que a semente espera? Semente `brasileiro` com
+a amplitude e o mando propostos (A1: 1,50 e 0,58; A2: 1,25 e 0,55), forças fixas na semente, 1ª fase,
+2022–2026. Resíduo = pontos por jogo reais − esperados; positivo quer dizer que o
+grupo rende mais do que a semente previa. Movimento estadual: de onde o clube veio.
+Movimento nacional: série do ano anterior contra a série do ano. Descritivo, com poucos
+casos por grupo: |t| abaixo de 2 não distingue o resíduo de zero.
+
+### A1
+
+| grupo | casos | pontos/jogo | esperado pela semente | resíduo ± erro-padrão | t | abaixo do esperado | entre os 8 | entre os 2 últimos |
+|---|---|---|---|---|---|---|---|---|
+| promovido no estadual | 10 | 1,15 | 1,11 | +0,04 ± 0,09 | +0,47 | 5/10 | 4/10 | 1/10 |
+| permaneceu na divisão estadual | 70 | 1,39 | 1,40 | −0,01 ± 0,06 | −0,22 | 34/70 | 36/70 | 9/70 |
+| subiu de série nacional | 9 | 1,15 | 1,44 | −0,29 ± 0,22 | −1,33 | 7/9 | 4/9 | 2/9 |
+| caiu de série nacional | 3 | 1,67 | 1,41 | +0,26 ± 0,28 | +0,92 | 1/3 | 2/3 | 0/3 |
+| manteve a série nacional | 54 | 1,45 | 1,44 | +0,01 ± 0,06 | +0,23 | 23/54 | 31/54 | 6/54 |
+| entrou na Série D | 5 | 1,06 | 1,02 | +0,04 ± 0,14 | +0,30 | 2/5 | 1/5 | 1/5 |
+| sem série nos dois anos | 9 | 1,08 | 1,02 | +0,05 ± 0,13 | +0,42 | 6/9 | 2/9 | 1/9 |
+
+### A2
+
+| grupo | casos | pontos/jogo | esperado pela semente | resíduo ± erro-padrão | t | abaixo do esperado | entre os 8 | entre os 2 últimos |
+|---|---|---|---|---|---|---|---|---|
+| promovido no estadual | 10 | 1,37 | 1,30 | +0,07 ± 0,10 | +0,68 | 4/10 | 6/10 | 0/10 |
+| rebaixado no estadual | 10 | 1,70 | 1,54 | +0,16 ± 0,13 | +1,22 | 5/10 | 8/10 | 0/10 |
+| permaneceu na divisão estadual | 60 | 1,27 | 1,34 | −0,07 ± 0,05 | −1,48 | 31/60 | 26/60 | 10/60 |
+| subiu de série nacional | 3 | 1,42 | 1,69 | −0,26 ± 0,15 | −1,77 | 3/3 | 2/3 | 0/3 |
+| caiu de série nacional | 3 | 1,84 | 1,72 | +0,13 ± 0,09 | +1,38 | 1/3 | 3/3 | 0/3 |
+| manteve a série nacional | 4 | 2,07 | 1,63 | +0,44 ± 0,12 | +3,70 | 0/4 | 4/4 | 0/4 |
+| entrou na Série D | 3 | 1,62 | 1,31 | +0,31 ± 0,07 | +4,30 | 0/3 | 3/3 | 0/3 |
+| saiu da Série D | 7 | 1,46 | 1,38 | +0,08 ± 0,12 | +0,69 | 2/7 | 6/7 | 0/7 |
+| sem série nos dois anos | 60 | 1,23 | 1,31 | −0,08 ± 0,05 | −1,65 | 34/60 | 22/60 | 10/60 |
+
+### Conjuntos
+
+| grupo | casos | pontos/jogo | esperado pela semente | resíduo ± erro-padrão | t | abaixo do esperado | entre os 8 | entre os 2 últimos |
+|---|---|---|---|---|---|---|---|---|
+| subiu de série nacional (A1 e A2) | 12 | 1,22 | 1,50 | −0,28 ± 0,16 | −1,73 | 10/12 | 6/12 | 2/12 |
+| caiu de série nacional (A1 e A2) | 6 | 1,76 | 1,56 | +0,19 ± 0,13 | +1,44 | 2/6 | 5/6 | 0/6 |
+| A2: joga série nacional no ano | 13 | 1,76 | 1,59 | +0,17 ± 0,09 | +1,92 | 4/13 | 12/13 | 0/13 |
+| A2: sem série no ano, tinha no anterior | 7 | 1,46 | 1,38 | +0,08 ± 0,12 | +0,69 | 2/7 | 6/7 | 0/7 |
+| A2: sem série nos dois anos | 60 | 1,23 | 1,31 | −0,08 ± 0,05 | −1,65 | 34/60 | 22/60 | 10/60 |
+
+### Os casos
+
+| divisão | ano | clube | estadual | série nacional | posição na 1ª fase | pontos/jogo | esperado | resíduo |
+|---|---|---|---|---|---|---|---|---|
+| A1 | 2022 | Ituano | permaneceu | C → B | 5 | 1,58 | 1,44 | +0,14 |
+| A1 | 2022 | Novorizontino | permaneceu | C → B | 16 | 0,25 | 1,38 | −1,13 |
+| A1 | 2022 | São Bernardo | promovido | – → D | 8 | 1,33 | 0,98 | +0,35 |
+| A1 | 2022 | Água Santa | promovido | – → – | 14 | 0,92 | 0,99 | −0,07 |
+| A1 | 2023 | Botafogo-SP | permaneceu | C → B | 9 | 1,17 | 1,49 | −0,32 |
+| A1 | 2023 | Mirassol | permaneceu | C → B | 7 | 1,25 | 1,49 | −0,24 |
+| A1 | 2023 | Portuguesa-SP | promovido | – → – | 14 | 0,83 | 1,02 | −0,18 |
+| A1 | 2023 | São Bento | promovido | – → – | 15 | 0,83 | 1,03 | −0,19 |
+| A1 | 2023 | São Bernardo | permaneceu | D → C | 2 | 2,17 | 1,31 | +0,85 |
+| A1 | 2024 | Novorizontino | promovido | B → B | 4 | 1,83 | 1,51 | +0,32 |
+| A1 | 2024 | Ponte Preta | promovido | B → B | 8 | 1,42 | 1,41 | +0,01 |
+| A1 | 2024 | Santos | permaneceu | A → B | 2 | 2,08 | 1,46 | +0,62 |
+| A1 | 2025 | Guarani | permaneceu | B → C | 10 | 1,08 | 1,37 | −0,29 |
+| A1 | 2025 | Mirassol | permaneceu | B → A | 9 | 1,33 | 1,55 | −0,22 |
+| A1 | 2025 | Noroeste | promovido | – → – | 14 | 0,67 | 1,00 | −0,33 |
+| A1 | 2025 | Ponte Preta | permaneceu | B → C | 4 | 1,83 | 1,39 | +0,44 |
+| A1 | 2025 | Santos | permaneceu | B → A | 6 | 1,50 | 1,54 | −0,04 |
+| A1 | 2025 | Velo Clube | promovido | – → – | 11 | 1,08 | 1,03 | +0,06 |
+| A1 | 2026 | Capivariano | promovido | – → – | 7 | 1,63 | 1,09 | +0,53 |
+| A1 | 2026 | Ponte Preta | permaneceu | C → B | 16 | 0,13 | 1,50 | −1,37 |
+| A1 | 2026 | Primavera-SP | promovido | – → – | 12 | 1,00 | 1,08 | −0,08 |
+| A1 | 2026 | São Bernardo | permaneceu | C → B | 13 | 1,00 | 1,29 | −0,29 |
+| A2 | 2022 | Linense | promovido | – → – | 7 | 1,47 | 1,31 | +0,16 |
+| A2 | 2022 | Osasco Sporting | permaneceu | C → D | 2 | 2,00 | 1,73 | +0,27 |
+| A2 | 2022 | Primavera-SP | promovido | – → – | 8 | 1,47 | 1,31 | +0,16 |
+| A2 | 2022 | São Bento | rebaixado | D → – | 6 | 1,47 | 1,34 | +0,12 |
+| A2 | 2022 | São Caetano | rebaixado | – → – | 11 | 1,13 | 1,33 | −0,20 |
+| A2 | 2023 | Comercial-SP | promovido | – → – | 8 | 1,27 | 1,30 | −0,03 |
+| A2 | 2023 | Noroeste | promovido | – → – | 3 | 1,73 | 1,30 | +0,43 |
+| A2 | 2023 | Novorizontino | rebaixado | B → B | 2 | 1,93 | 1,70 | +0,24 |
+| A2 | 2023 | Ponte Preta | rebaixado | B → B | 1 | 2,40 | 1,72 | +0,68 |
+| A2 | 2024 | Capivariano | promovido | – → – | 14 | 1,07 | 1,32 | −0,26 |
+| A2 | 2024 | Ferroviária | rebaixado | D → C | 3 | 1,73 | 1,75 | −0,02 |
+| A2 | 2024 | São Bento | rebaixado | – → – | 1 | 2,13 | 1,35 | +0,79 |
+| A2 | 2024 | São José-SP | promovido | – → D | 2 | 1,73 | 1,32 | +0,41 |
+| A2 | 2025 | Ferroviária | permaneceu | C → B | 6 | 1,47 | 1,71 | −0,24 |
+| A2 | 2025 | Grêmio Prudente | promovido | – → – | 9 | 1,33 | 1,29 | +0,04 |
+| A2 | 2025 | Ituano | rebaixado | B → C | 3 | 1,67 | 1,72 | −0,05 |
+| A2 | 2025 | Santo André | rebaixado | D → – | 8 | 1,40 | 1,43 | −0,03 |
+| A2 | 2025 | Votuporanguense | promovido | – → – | 13 | 1,13 | 1,29 | −0,16 |
+| A2 | 2026 | Ferroviária | permaneceu | B → C | 2 | 1,87 | 1,70 | +0,17 |
+| A2 | 2026 | Inter de Limeira | rebaixado | D → C | 12 | 1,07 | 1,60 | −0,53 |
+| A2 | 2026 | Monte Azul | promovido | D → – | 14 | 0,80 | 1,28 | −0,48 |
+| A2 | 2026 | Sertãozinho | promovido | – → – | 5 | 1,67 | 1,28 | +0,39 |
+| A2 | 2026 | Água Santa | rebaixado | D → D | 1 | 2,07 | 1,46 | +0,61 |

@@ -168,3 +168,34 @@ test('leitura registrada em DECISOES: A2', () => {
   assert.ok(D.mando.padrao.escolha.zEmpate < -2);
   assert.ok(D.mando.mataMata[0].zCasa > 2);
 });
+
+test('promoção e rebaixamento: os grupos têm o tamanho que o formato impõe', () => {
+  const M = S.movimento;
+  // 16 clubes por divisão em cinco anos; dois sobem e dois descem por ano.
+  assert.equal(Object.values(M.A1.estadual).reduce((s, g) => s + g.n, 0), 80);
+  assert.equal(Object.values(M.A2.nacional).reduce((s, g) => s + g.n, 0), 80);
+  assert.equal(M.A1.estadual.promovido.n, 10);
+  assert.equal(M.A2.estadual.rebaixado.n, 10);
+  assert.equal(M.A2.estadual.promovido.n, 10);
+  // Quem subiu ao A1 num ano é quem ficou nos dois primeiros da A2 no anterior, ou quase:
+  // todos vêm da A2, e nenhum caso aparece duas vezes.
+  assert.equal(new Set(M.casos.map(l => `${l.sigla} ${l.ano} ${l.time}`)).size, M.casos.length);
+});
+
+test('leitura registrada em DECISOES: promoção e rebaixamento', () => {
+  const M = S.movimento, semEfeito = g => Math.abs(g.t) < 2;
+  // Estadual: nenhum dos três movimentos se distingue de zero contra a semente.
+  assert.ok(semEfeito(M.A1.estadual.promovido) && semEfeito(M.A2.estadual.promovido) && semEfeito(M.A2.estadual.rebaixado));
+  assert.ok(M.A2.estadual.rebaixado.residuo > 0 && M.A2.estadual.rebaixado.entreOsOito === 8 && M.A2.estadual.rebaixado.entreOsDoisUltimos === 0);
+  assert.equal(M.A1.estadual.promovido.entreOsDoisUltimos, 1);
+  assert.equal(M.A2.estadual.promovido.entreOsDoisUltimos, 0);
+  // Nacional: quem sobe rende menos do que a semente espera, quem cai rende mais; nenhum
+  // dos dois se distingue de zero.
+  const sobe = M.conjunto['subiu de série nacional (A1 e A2)'], cai = M.conjunto['caiu de série nacional (A1 e A2)'];
+  assert.ok(sobe.residuo < 0 && cai.residuo > 0 && semEfeito(sobe) && semEfeito(cai));
+  assert.deepEqual([sobe.n, sobe.abaixoDoEsperado, cai.n, cai.abaixoDoEsperado], [12, 10, 6, 2]);
+  // A2: quem joga série nacional no ano rende acima da semente; quem não tem, abaixo.
+  const com = M.conjunto['A2: joga série nacional no ano'], sem = M.conjunto['A2: sem série nos dois anos'];
+  assert.ok(com.residuo > 0 && sem.residuo < 0 && semEfeito(com) && semEfeito(sem));
+  assert.equal(com.entreOsOito, 12);
+});

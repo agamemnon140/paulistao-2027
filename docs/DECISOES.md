@@ -67,6 +67,20 @@ da varredura; 0,55 é também a fatia de gols do mandante medida nos jogos (0,55
 viés pediria 0,54, mas à custa de exagerar o visitante, porque o que falta de fato é
 empate. No mata-mata da A2, 0,65 exagera o mandante em 19,8 pontos (z 3,20).
 
+**Promoção e rebaixamento.** Ter subido ou caído não tem efeito que a semente já não
+carregue. Comparando os pontos por jogo de cada clube na 1ª fase com o que a semente
+proposta esperava, nenhum grupo se distingue de zero, com 3 a 12 casos cada. No estadual:
+o promovido ao A1 rende o que a semente espera (+0,04 ponto por jogo; 1 de 10 caiu de
+volta), o promovido à A2 também (+0,07; nenhum de 10 caiu de volta) e o rebaixado para a
+A2 rende um pouco mais (+0,16 ± 0,13; 8 de 10 entre os oito). No nacional o sinal é o
+contrário de embalo: quem subiu de série rendeu menos do que a semente em 10 de 12 casos
+(−0,28 ± 0,16) e quem caiu rendeu mais (+0,19 ± 0,13, 6 casos). Dois casos respondem pela
+maior parte do primeiro número: Novorizontino em 2022 e Ponte Preta em 2026, os dois
+rebaixados no Paulista logo depois de subir da C para a B. É o que se espera de regressão
+à média: a posição dentro da série vale menos do que a escada supõe nas bordas. Na A2,
+quem joga série nacional no ano rende acima da semente (+0,17 ± 0,09; 12 de 13 entre os
+oito). Nada disso justifica um termo de promoção ou rebaixamento na semente.
+
 **O que o backtest mostrou e não foi pedido.** Na 1ª fase da A2 o modelo prevê 5,2 pontos
 de empate a menos do que acontece (z −2,53); o total de gols herdado está certo (2,29
 medido contra 2,31), então é a independência de Poisson, não o λ. Corrigir pede um termo

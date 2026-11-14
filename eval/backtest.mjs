@@ -19,6 +19,7 @@ import { ANOS, SIGLAS, temporada, escadasEstaduais, nacional } from './dados.mjs
 import { notas, elos } from './sementes.mjs';
 import { resumo, difBrier } from './metricas.mjs';
 import { relatorio } from './relatorio.mjs';
+import { residuosDaTemporada, movimento } from './movimento.mjs';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 export const RAZOES = [1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 6, 8];
@@ -26,6 +27,10 @@ export const CANDIDATAS = ['divisao', 'brasileiro', 'paulista', 'composta'];
 export const ESCOLHA = [2022, 2023, 2024, 2025], CONFIRMACAO = [2026];
 export const PESOS_CASA = [0.50, 0.52, 0.54, 0.55, 0.56, 0.57, 0.58, 0.60, 0.62];
 export const GOLS_PADRAO = { liga: { total: 2.31, pesoCasa: 0.58 }, mataMata: { total: 2.31, pesoCasa: 0.65 } };
+
+// Semente, amplitude e mando propostos em docs/DECISOES.md (17 e 18). Só a análise de
+// promoção e rebaixamento usa isto; a escolha em si sai das curvas, não daqui.
+export const PROPOSTA = { semente: 'brasileiro', A1: { razao: 1.5, gols: { total: 2.31, pesoCasa: 0.58 } }, A2: { razao: 1.25, gols: { total: 2.31, pesoCasa: 0.55 } } };
 
 // Jogo eliminatório (λ de mata-mata). Fases de grupos depois da 1ª — a 2ª fase da A2 de
 // 2026 — são pontos corridos e usam o λ de liga.
@@ -143,6 +148,12 @@ export function principal({ gravar = true } = {}) {
     // Sensibilidade ao preset de atualização (não é ajuste: só informa).
     D.presets = Object.fromEntries(['conservador', 'base', 'agressivo'].map(ak => [ak, resumo(prever(sigla, ref, rRef, ESCOLHA, { ak })).brier]));
   }
+  // Promoção e rebaixamento: resíduo de cada clube-temporada contra a semente proposta.
+  saida.proposta = PROPOSTA;
+  saida.movimento = movimento(SIGLAS.flatMap(sigla => TODOS.flatMap(ano => {
+    const t = T[sigla + ano];
+    return residuosDaTemporada({ sigla, ano, times: t.times, jogos: t.jogos, nota: t.notas[PROPOSTA.semente], razao: PROPOSTA[sigla].razao, gols: PROPOSTA[sigla].gols, escadas, nac });
+  })));
   if (gravar) {
     const texto = serializar(saida);
     fs.mkdirSync(path.join(AQUI, 'out'), { recursive: true });

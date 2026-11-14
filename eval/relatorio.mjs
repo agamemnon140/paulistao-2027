@@ -112,5 +112,31 @@ Brier na escolha por preset de atualização (semente \`${D.mando.semente}\`): $
 Clubes sem série nacional no ano anterior: ${Object.entries(D.cobertura).map(([a, c]) => `${a}: ${c.semSerieNacionalNoAnoAnterior}`).join(', ')} (de 16). Clubes fora da escada estadual: ${Object.values(D.cobertura).every(c => !c.semEscadaEstadual.length) ? 'nenhum' : Object.entries(D.cobertura).filter(([, c]) => c.semEscadaEstadual.length).map(([a, c]) => `${a}: ${c.semEscadaEstadual.join(', ')}`).join('; ')}.
 `);
   }
+  const M = S.movimento, P = S.proposta;
+  const s2 = x => (x > 0 ? '+' : x < 0 ? '−' : '') + f(Math.abs(x), 2);
+  const linha = (nome, g) => [nome, g.n, f(g.real, 2), f(g.esperado, 2), g.ep === null ? s2(g.residuo) : `${s2(g.residuo)} ± ${f(g.ep, 2)}`, g.t === null ? '' : s2(g.t), `${g.abaixoDoEsperado}/${g.n}`, `${g.entreOsOito}/${g.n}`, `${g.entreOsDoisUltimos}/${g.n}`];
+  const cab = ['grupo', 'casos', 'pontos/jogo', 'esperado pela semente', 'resíduo ± erro-padrão', 't', 'abaixo do esperado', 'entre os 8', 'entre os 2 últimos'];
+  const ROT = { estadual: { promovido: 'promovido no estadual', rebaixado: 'rebaixado no estadual', permaneceu: 'permaneceu na divisão estadual' }, nacional: { subiu: 'subiu de série nacional', caiu: 'caiu de série nacional', manteve: 'manteve a série nacional', entrou: 'entrou na Série D', saiu: 'saiu da Série D', 'sem série': 'sem série nos dois anos' } };
+  o.push(`## Promoção e rebaixamento
+
+Quem mudou de divisão rende diferente do que a semente espera? Semente \`${P.semente}\` com
+a amplitude e o mando propostos (A1: ${f(P.A1.razao, 2)} e ${f(P.A1.gols.pesoCasa, 2)}; A2: ${f(P.A2.razao, 2)} e ${f(P.A2.gols.pesoCasa, 2)}), forças fixas na semente, 1ª fase,
+${S.escolha[0]}–${S.confirmacao[0]}. Resíduo = pontos por jogo reais − esperados; positivo quer dizer que o
+grupo rende mais do que a semente previa. Movimento estadual: de onde o clube veio.
+Movimento nacional: série do ano anterior contra a série do ano. Descritivo, com poucos
+casos por grupo: |t| abaixo de 2 não distingue o resíduo de zero.
+`);
+  for (const sigla of ['A1', 'A2']) o.push(`### ${sigla}
+
+${tabela(cab, ['estadual', 'nacional'].flatMap(dim => Object.keys(ROT[dim]).filter(g => M[sigla][dim][g]).map(g => linha(ROT[dim][g], M[sigla][dim][g]))))}
+`);
+  o.push(`### Conjuntos
+
+${tabela(cab, Object.entries(M.conjunto).map(([g, x]) => linha(g, x)))}
+
+### Os casos
+
+${tabela(['divisão', 'ano', 'clube', 'estadual', 'série nacional', 'posição na 1ª fase', 'pontos/jogo', 'esperado', 'resíduo'], M.casos.map(l => [l.sigla, l.ano, l.time, l.estadual, `${l.serieAntes ?? '–'} → ${l.serieNoAno ?? '–'}`, l.posicao, f(l.real, 2), f(l.esperado, 2), s2(l.residuo)]))}
+`);
   return o.join('\n');
 }
