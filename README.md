@@ -10,11 +10,11 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 | Parte | Situação |
 |---|---|
 | Núcleo do motor (`engine/core.mjs`, `engine/liga.mjs`) | Portado; paridade com o original verificada |
-| Leitor da FPF (`scripts/fpf.mjs`) | Escrito e testado sem rede; nunca rodou contra o site |
-| Coleta 2022–2026 | Não feita |
+| Histórico 2022–2026, A1 e A2 (`data/fpf/`) | 1.184 jogos da fonte oficial; 2026 fecha com as classificações publicadas |
+| Coleta automática pela Action | Bloqueada: a FPF responde 403 ao runner do GitHub |
 | Formato do Paulista (potes, mata-mata, A2) | Não feito |
 | Backtest das sementes | Não feito |
-| Interface, arquivo de previsões, Action de resultados | Não feitos |
+| Interface, arquivo de previsões, ingestão de 2027 | Não feitos |
 
 ## Rodar
 
@@ -25,8 +25,27 @@ npm test                                   # paridade com o motor original + lei
 node scripts/coletar_fpf.mjs --comp A1,A2 --anos 2022-2026
 ```
 
-A coleta também roda pelo workflow "Coletar temporadas da FPF" (disparo manual), que
-commita `data/fpf/`.
+## De onde vêm os dados
+
+A fonte são os handlers JSON do site da FPF (ver `scripts/fpf.mjs`). O site aceita
+navegador e recusa o runner do GitHub Actions com HTTP 403, então o workflow "Coletar
+temporadas da FPF" hoje falha por desenho, e `scripts/coletar_fpf.mjs` só funciona de uma
+máquina que a FPF aceite.
+
+O histórico de 2022 a 2026 foi lido dos mesmos handlers dentro de um navegador em
+14/11/2026 e trazido como texto compacto, com três hashes calculados no navegador
+(`data/fpf/_transferencia/`). `node scripts/decodificar_transferencia.mjs` regenera os
+arquivos de temporada a partir desse texto e recusa decodificar se algum hash não bater.
+
+O que esses arquivos não têm: identificador do jogo, data e estádio. Para o backtest, que
+usa rodada, mandante, visitante e placar, não fazem falta.
+
+Duas coisas para saber ao ler os dados:
+
+- A FPF devolve o nome atual do clube também nas temporadas antigas (o Oeste aparece como
+  Osasco Sporting desde 2022).
+- No A1 de 2022 e 2023, os jogos de mata-mata com grupo numérico (`01` a `05`) são do
+  Troféu do Interior; a chave principal usa grupos com letra.
 
 ## Paridade com o motor original
 
@@ -53,8 +72,9 @@ precisa acompanhar.
 
 ## O que os testes não cobrem
 
-- O site da FPF de verdade: se aceita o runner do GitHub, e como representa um jogo ainda
-  não disputado. `test/fixtures/fpf_listar_tabela_a1_2026_r9.json` é uma amostra
-  reconstruída do formato observado, não uma captura.
-- `data/nomes_fpf.json` só tem os nomes vistos até agora; a primeira coleta lista os demais.
-- `data/referencia/` só tem as classificações de 2026.
+- Como o handler da FPF representa um jogo ainda não disputado: não havia nenhum para
+  observar. `test/fixtures/fpf_listar_tabela_a1_2026_r9.json` é uma amostra reconstruída
+  do formato observado, não uma captura.
+- As temporadas de 2022 a 2025 fecham por dentro (16 clubes, número certo de jogos por
+  clube), mas só 2026 foi reconciliada com classificação publicada por terceiros.
+- Pênaltis: o handler de tabela não os traz.

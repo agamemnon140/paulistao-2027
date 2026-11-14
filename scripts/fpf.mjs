@@ -15,8 +15,9 @@
 // competição só visível com o campeonato em andamento. Até lá, quem avançou num empate de
 // mata-mata se deduz de quem aparece na fase seguinte (ver `classificadoPorFaseSeguinte`).
 //
-// Ainda NÃO verificado: se um cliente fora de navegador (o runner do GitHub Actions) é
-// aceito pelo site. A primeira execução do workflow de coleta responde isso.
+// Medido em 14/11/2026: o site responde HTTP 403 ao runner do GitHub Actions em todas as
+// chamadas, e normalmente a um navegador. Se aceita este coletor rodando de um computador
+// comum ainda não foi testado.
 
 export const FPF_BASE = 'https://www.futebolpaulista.com.br/Handlers/Competicoes/';
 

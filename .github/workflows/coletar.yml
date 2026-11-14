@@ -1,8 +1,11 @@
 name: Coletar temporadas da FPF
 
 # Disparo manual. Baixa temporadas inteiras da fonte oficial e commita data/fpf/.
-# É também o teste de que o runner do GitHub é aceito pelo site da FPF: se a FPF recusar
-# cliente fora de navegador, este passo falha com a mensagem do erro e nada é gravado.
+#
+# ESTADO EM 14/11/2026: a FPF responde HTTP 403 ao runner hospedado do GitHub, então este
+# workflow falha no primeiro passo e não grava nada. Fica aqui para o dia em que rodar num
+# runner que a FPF aceite (por exemplo, self-hosted); o histórico de 2022 a 2026 entrou
+# por data/fpf/_transferencia/.
 
 on:
   workflow_dispatch:
