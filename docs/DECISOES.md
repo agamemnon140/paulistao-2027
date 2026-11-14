@@ -30,7 +30,6 @@ competições, a fonte de dados e a disciplina de avaliação.
 | 14 | Interface | Edição manual com "1 Simulação", aba Evolução lida do arquivo de previsões, PWA | Herdado do `brasileiro-2026` |
 | 15 | Arquivo de previsões | `predictions.jsonl` desde a primeira projeção | REPORT §15.1: é a única coisa que não dá para fazer retroativamente |
 | 16 | Ingestão | **Adiada em 14/11/2026**; decidir antes de 10/01/2027. A FPF responde 403 ao runner do GitHub e também ao coletor em Node num computador comum, e o app publicado não lê a FPF direto (CORS); só um navegador lê a fonte. Restrição: a solução não pode depender de trabalho manual do dono a cada rodada. Candidatas: tarefa agendada lendo pelo navegador, navegador automatizado, outra fonte | Os três bloqueios foram medidos; o simulador não depende dessa escolha para ser construído |
-
 | 17 | Semente (**proposta, aguardando confirmação**) | `brasileiro` nas duas divisões: colocação nacional do ano anterior na escada A→D; quem não tem série nacional fica um degrau abaixo do pior do grupo. Amplitude 1,50 no A1 e 1,25 na A2 | Ver "Leitura do backtest" abaixo |
 | 18 | Mando (**proposta, aguardando confirmação**) | A1 fica como está: 0,58 na 1ª fase, 0,65 no mata-mata. A2 passa a 0,55 na 1ª fase e no mata-mata | No A1 o viés não é significativo; na A2 é, na escolha e na confirmação |
 | 19 | Fora do combinado na decisão 10 (**precisa de decisão**) | Total de gols do mata-mata da A2 (2,31 herdado; 1,84 medido em 62 jogos) e a falta de empates na A2 | O backtest mediu, mas mexer aqui é mudar mais do que semente e mando |
@@ -50,8 +49,9 @@ melhor em casa contra o pior vence 69% das vezes; com 3,0 o modelo diria 94%.
 fora do zero. `composta` tem o menor Brier, mas empata com `brasileiro` (Δ +0,0014, IC
 de −0,0045 a +0,0076) e perde dela em 2026; pelo critério da decisão 8, empate vai para a
 mais simples. Contra `divisão`, `brasileiro` ganha em quatro dos cinco anos e empata no
-outro (2022, diferença de 0,0001). A semente `paulista` sozinha é a mais fraca e não bate o piso em 2026. Ou seja:
-o Paulista anterior não acrescenta nada mensurável ao Brasileiro anterior.
+outro (2022, diferença de 0,0001). A semente `paulista` sozinha é a mais fraca e não
+bate o piso em 2026. Ou seja: o Paulista anterior não acrescenta nada mensurável ao
+Brasileiro anterior.
 
 **A2.** A escada estadual não ajuda em amplitude nenhuma. A semente nacional ajuda pouco:
 com 1,25 o IC exclui zero na escolha (Δ −0,0069) e nos cinco anos, e 2026 repete o tamanho
