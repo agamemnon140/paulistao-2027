@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { ENTRADAS, SIGLAS } from './dados.js';
 import { ABAS, dataBR } from './abas.jsx';
+// O endereço do worker já compilado: serve para criá-lo e para guardá-lo para uso sem rede.
+import urlDoWorker from './sim.worker.js?worker&url';
+export { urlDoWorker };
 
 const N_SIMS = 10000, SEMENTE_PADRAO = 2027;
 const chave = (sigla, seed) => `${sigla}|${seed}`;
@@ -14,7 +17,7 @@ export default function App({ inicial = {} }) {
   const worker = useRef(null), pedidos = useRef(new Set());
 
   useEffect(() => {
-    const w = new Worker(new URL('./sim.worker.js', import.meta.url), { type: 'module' });
+    const w = new Worker(urlDoWorker, { type: 'module' });
     w.onmessage = ({ data }) => {
       if (data.erro) setErro(data.erro);
       else setResultados(r => ({ ...r, [data.id]: data.resultado }));
