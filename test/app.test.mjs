@@ -33,7 +33,9 @@ test('projeção: os 16 clubes, as colunas da divisão e a matriz de posições'
   for (const c of app.ENTRADAS.A1.comp.times) assert.ok(a1.includes(c), c);
   for (const col of ['Entre os 8', 'Semi', 'Final', 'Título', 'Queda']) assert.ok(a1.includes(col), col);
   assert.ok(a1.includes('A 2º') && a1.includes('sem série'), 'posição no Brasileiro ao lado do clube');
-  assert.ok(a1.includes('Em que posição cada um termina'));
+  assert.ok(a1.includes('Em que posição cada um termina') && a1.includes('Quantos pontos bastam') && a1.includes('Tema escuro'));
+  const html = app.renderizar({ sigla: 'A1', aba: 'projecao', resultado: resultadoDe('A1') });
+  for (const zona of ['chance bom', 'chance neutro', 'chance ruim']) assert.ok(html.includes(zona), `matriz por zona: ${zona}`);
   const a2 = texto(app.renderizar({ sigla: 'A2', aba: 'projecao', resultado: resultadoDe('A2') }));
   assert.ok(a2.includes('Acesso') && !a2.includes('Sorteio'), 'na A2 a coluna é acesso e não há aba de sorteio');
   assert.ok(a1.includes('Sorteio'));

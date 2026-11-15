@@ -82,9 +82,10 @@ workflow "Publicar" compila e publica no GitHub Pages a cada push em `main`
 estar com a fonte "GitHub Actions". É instalável e abre sem rede depois da primeira visita.
 `test/app.test.mjs` monta cada seção de cada divisão com dados reais, sem navegador.
 
-O desenho usa as cinco cores da bandeira paulista, cada uma com um ofício: preto e branco
-fazem a estrutura, azul mede chance boa, vermelho mede queda, amarelo avisa do que é
-provisório. A tipografia é uma família só (Archivo), larga nos títulos e estreita nos números.
+No desenho cada cor tem um ofício: preto e branco fazem a estrutura (as listras da bandeira
+paulista), verde mede chance boa, vermelho mede queda, cinza é a zona do meio, amarelo
+avisa do que é provisório. Há tema claro e escuro, com botão no topo; sem escolha, vale o
+do aparelho. A tipografia é uma família só (Archivo), larga nos títulos e estreita nos números.
 
 ## Projeção e arquivo de previsões
 

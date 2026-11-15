@@ -21,6 +21,7 @@ import { notas, elos } from './sementes.mjs';
 import { resumo, difBrier } from './metricas.mjs';
 import { relatorio } from './relatorio.mjs';
 import { residuosDaTemporada, movimento, faixas } from './movimento.mjs';
+import { CHANCE_DE_GOL_2026, AMPLITUDE_V9, spearman } from './simulador2026.mjs';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 export const RAZOES = [1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 6, 8];
@@ -175,6 +176,20 @@ export function principal({ gravar = true } = {}) {
     [DECISAO.semente]: faixas(decididas.filter(l => l.sigla === 'A1'), GRANDES),
     brasileiro: faixas(linhas('brasileiro', s => saida.divisoes[s].melhor.brasileiro.razao, s => DECISAO[s].gols.liga).filter(l => l.sigla === 'A1'), GRANDES)
   };
+  // O simulador de 2026: a semente dele (ranking do Chance de Gol) contra a decidida aqui,
+  // nos jogos do A1 de 2026. Uma temporada só, e a forma da nossa escada foi escolhida
+  // depois de olhar resíduos que incluíam 2026: serve de referência, não de prova.
+  {
+    const t = T.A12026, eCG = elos(CHANCE_DE_GOL_2026, t.times);
+    const comCG = razao => preverTemporada({ times: t.times, jogos: t.jogos, getElo: x => eCG[x], razao });
+    const nossa = prever('A1', DECISAO.semente, DECISAO.A1.razao, CONFIRMACAO);
+    saida.simulador2026 = {
+      jogos: nossa.length, amplitudeDoV9: AMPLITUDE_V9,
+      piso: resumo(prever('A1', 'divisao', 1, CONFIRMACAO)).brier, nossa: resumo(nossa).brier,
+      chanceDeGol: [1.5, 2, AMPLITUDE_V9, 3].map(razao => { const p = comCG(razao); return { razao, brier: resumo(p).brier, contraNossa: difBrier(p, nossa) }; }),
+      correlacaoDePostos: spearman(CHANCE_DE_GOL_2026, t.notas[DECISAO.semente], t.times)
+    };
+  }
   if (gravar) {
     const texto = serializar(saida);
     fs.mkdirSync(path.join(AQUI, 'out'), { recursive: true });

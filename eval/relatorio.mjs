@@ -161,5 +161,17 @@ demais da Série B.
 
 ${tabela(['faixa', 'casos', 'pontos/jogo', 'esperado, linear', 'resíduo, linear', `esperado, ${NOME[P.semente]}`, `resíduo, ${NOME[P.semente]}`], fx.map(k => [k, F.brasileiro[k].n, f(F.brasileiro[k].real, 2), f(F.brasileiro[k].esperado, 2), res(F.brasileiro[k]), f(F[P.semente][k].esperado, 2), res(F[P.semente][k])]))}
 `);
+  const V = S.simulador2026;
+  o.push(`## O simulador de 2026
+
+O simulador do ano passado (\`simulador_paulista_v9.jsx\`, no Projeto) semeava o A1 com o
+ranking do Chance de Gol e produzia uma amplitude de ${f(V.amplitudeDoV9, 2)}. Aqui essa semente é
+avaliada com o motor de hoje nos ${V.jogos} jogos do A1 de ${S.confirmacao[0]}, contra a semente decidida
+(Brier ${f(V.nossa)}; piso ${f(V.piso)}). A correlação de postos entre as duas é ${f(V.correlacaoDePostos, 2)}. É uma
+temporada só, e a forma da nossa escada foi escolhida depois de olhar resíduos que
+incluíam ${S.confirmacao[0]}: a comparação favorece a nossa.
+
+${tabela(['semente', 'razão', 'Brier', 'Δ contra a decidida'], V.chanceDeGol.map(c => [`Chance de Gol${c.razao === V.amplitudeDoV9 ? ' (amplitude do v9)' : ''}`, f(c.razao, 2), f(c.brier), ic(c.contraNossa) + marca(c.contraNossa)]))}
+`);
   return o.join('\n');
 }

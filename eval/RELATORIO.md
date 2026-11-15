@@ -387,3 +387,19 @@ demais da Série B.
 | Série C no ano anterior | 11 | 1,22 | 1,40 | −0,17 ± 0,18 | 1,26 | −0,04 ± 0,18 |
 | Série D no ano anterior | 12 | 1,14 | 1,10 | +0,05 ± 0,13 | 1,07 | +0,07 ± 0,14 |
 | sem série no ano anterior | 14 | 1,07 | 1,02 | +0,05 ± 0,09 | 1,04 | +0,03 ± 0,10 |
+
+## O simulador de 2026
+
+O simulador do ano passado (`simulador_paulista_v9.jsx`, no Projeto) semeava o A1 com o
+ranking do Chance de Gol e produzia uma amplitude de 2,27. Aqui essa semente é
+avaliada com o motor de hoje nos 72 jogos do A1 de 2026, contra a semente decidida
+(Brier 0,6019; piso 0,6344). A correlação de postos entre as duas é 0,82. É uma
+temporada só, e a forma da nossa escada foi escolhida depois de olhar resíduos que
+incluíam 2026: a comparação favorece a nossa.
+
+| semente | razão | Brier | Δ contra a decidida |
+|---|---|---|---|
+| Chance de Gol | 1,50 | 0,6238 | +0,0219 [−0,0082; +0,0516] |
+| Chance de Gol | 2,00 | 0,6257 | +0,0238 [+0,0021; +0,0463] ✱ |
+| Chance de Gol (amplitude do v9) | 2,27 | 0,6285 | +0,0266 [+0,0044; +0,0513] ✱ |
+| Chance de Gol | 3,00 | 0,6375 | +0,0355 [+0,0030; +0,0693] ✱ |

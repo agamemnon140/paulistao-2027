@@ -74,13 +74,24 @@ function Projecao({ sigla, entradas, resultado }) {
           </tbody>
         </table>
       </div>
-      <p className="nota">
-        A última vaga entre os {classificados} costuma sair com {v.p50} pontos (de {v.p10} a {v.p90}). O primeiro da zona de queda costuma somar {z.p50} (de {z.p10} a {z.p90}).
-        Ao lado de cada clube, a posição dele no Brasileiro de 2026, que é de onde sai a força de partida.
-      </p>
+      <p className="nota">Ao lado de cada clube, a posição dele no Brasileiro de 2026, que é de onde sai a força de partida.</p>
+
+      <h2>Quantos pontos bastam</h2>
+      <p className="lide">Os pontos do último que avança e do primeiro que cai mudam de uma temporada simulada para outra. A tabela mostra a faixa.</p>
+      <div className="rolagem limiares">
+        <table className="tabela">
+          <thead><tr><th scope="col" className="esq">Em quantas temporadas</th><th scope="col">Último entre os {classificados}</th><th scope="col">Primeiro da zona de queda</th></tr></thead>
+          <tbody>
+            <tr><td>Nas mais fáceis (1 em cada 10)</td><td className="pontos">{v.p10} ou menos</td><td className="pontos">{z.p10} ou menos</td></tr>
+            <tr><td>Na temporada típica</td><td className="pontos">{v.p50}</td><td className="pontos">{z.p50}</td></tr>
+            <tr><td>Nas mais disputadas (1 em cada 10)</td><td className="pontos">{v.p90} ou mais</td><td className="pontos">{z.p90} ou mais</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="nota">Leitura: quem faz {v.p90} pontos iguala ou passa o último classificado em 9 de cada 10 temporadas; quem passa de {z.p90} fica acima do primeiro da zona de queda na mesma proporção.</p>
 
       <h2>Em que posição cada um termina a 1ª fase</h2>
-      <p className="lide">Cada célula é a chance, em %, de o clube terminar naquela posição. A linha preta separa os {classificados} que avançam; a vermelha, os {rebaixados} que caem.</p>
+      <p className="lide">Cada célula é a chance, em %, de o clube terminar naquela posição. Em verde, as {classificados} posições que avançam; em vermelho, as {rebaixados} que caem.</p>
       <div className="rolagem">
         <table className="tabela matriz" onMouseLeave={() => setLeitura(null)}>
           <thead>
@@ -95,8 +106,9 @@ function Projecao({ sigla, entradas, resultado }) {
                 <th scope="row" className="clube"><span className="nome">{p.time}</span></th>
                 {p.posF.map((x, i) => {
                   const f = x / maxPos, frase = `${p.time} termina em ${ord(i + 1)} em ${pctExato(x)} das temporadas.`;
+                  const zona = i < classificados ? 'bom' : i >= n - rebaixados ? 'ruim' : 'neutro';
                   return (
-                    <td key={i} className={`chance bom${f > 0.58 ? ' forte' : ''}${i === classificados - 1 ? ' corte' : i === n - rebaixados - 1 ? ' queda' : ''}`}
+                    <td key={i} className={`chance ${zona}${f > 0.58 ? ' forte' : ''}${i === classificados - 1 ? ' corte' : i === n - rebaixados - 1 ? ' queda' : ''}`}
                       style={{ '--f': Math.round(f * 100) }} title={frase} onMouseEnter={() => setLeitura(frase)} onClick={() => setLeitura(frase)}>
                       {x >= 0.5 ? Math.round(x) : ''}
                     </td>
@@ -292,11 +304,11 @@ function Evolucao({ sigla, entradas }) {
           {marcas.map(t => (
             <g key={t}><line className="grade" x1={mE} x2={L - mD} y1={y(t)} y2={y(t)} /><text className="eixo" x={mE - 8} y={y(t)} textAnchor="end" dominantBaseline="middle">{Math.round(t)}%</text></g>
           ))}
-          {pontos.length > 1 && <polyline className="linha" points={pontos.map(p => `${x(p.i)},${y(p.v)}`).join(' ')} />}
+          {pontos.length > 1 && <polyline className={`linha${m.id === 'rebaixado' ? ' ruim' : ''}`} points={pontos.map(p => `${x(p.i)},${y(p.v)}`).join(' ')} />}
           {pontos.map(p => (
             <g key={p.i} onMouseEnter={() => setFoco(p.i)} onClick={() => setFoco(p.i)}>
               <circle className="alvo" cx={x(p.i)} cy={y(p.v)} r="18" />
-              <circle className={`ponto${foco === p.i ? ' ativo' : ''}`} cx={x(p.i)} cy={y(p.v)} r="5" />
+              <circle className={`ponto${m.id === 'rebaixado' ? ' ruim' : ''}${foco === p.i ? ' ativo' : ''}`} cx={x(p.i)} cy={y(p.v)} r="5" />
               {(pontos.length <= 8 || p.i === 0 || p.i === pontos.length - 1) && <text className="eixo" x={x(p.i)} y={A - 12} textAnchor="middle">{dataBR(p.quando).slice(0, 5)}</text>}
             </g>
           ))}

@@ -219,3 +219,14 @@ test('leitura registrada em DECISOES: promoção e rebaixamento', () => {
   assert.ok(com.residuo > 0 && sem.residuo < 0 && semEfeito(sem));
   assert.equal(com.entreOsOito, 12);
 });
+
+test('leitura registrada em DECISOES: o simulador de 2026', () => {
+  const V = S.simulador2026, na = r => V.chanceDeGol.find(c => c.razao === r);
+  assert.equal(V.jogos, 72);
+  assert.equal(V.amplitudeDoV9, 2.27);
+  // A semente decidida prevê melhor os jogos de 2026 do que a do v9 na amplitude dele (IC
+  // fora do zero); com amplitude menor a diferença tem o mesmo sinal, mas o IC cruza zero.
+  assert.ok(V.nossa < na(2.27).brier && na(2.27).brier < V.piso && na(2.27).contraNossa.ic95[0] > 0);
+  assert.ok(na(1.5).contraNossa.dif > 0 && na(1.5).contraNossa.ic95[0] < 0);
+  assert.ok(V.correlacaoDePostos > 0.8);
+});

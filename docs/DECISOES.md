@@ -148,6 +148,33 @@ divisões simulam, as seis seções abrem, e tudo o que a página carrega fica g
 uso sem rede já na primeira visita. Abrir de fato sem rede foi testado na cópia local, com
 `scripts/qa/semrede.py`; no site publicado não há como cortar a rede pela automação.
 
+## Lições do simulador de 2026 (15/11/2026)
+
+Lidos `simulador_paulista_v7.txt` e `simulador_paulista_v9.jsx`, guardados no Projeto. O
+modelo é da mesma família do de hoje (Poisson com ataque e defesa, atualização por jogo,
+três velocidades). O que dá para aprender:
+
+- **Semente.** O v9 semeava com o ranking do Chance de Gol e chegava a uma amplitude de
+  2,27, perto dos 2,0 que o backtest escolheu. Nos 72 jogos do A1 de 2026, a semente de
+  hoje prevê melhor (Brier 0,6019 contra 0,6285; o piso é 0,6344), com IC fora do zero na
+  amplitude do v9. É uma temporada só e a comparação favorece a nossa, porque a forma da
+  escada foi escolhida depois de olhar resíduos que incluíam 2026. Um ranking externo como
+  esse continua sendo candidata não medida: faltaria o valor dele em cada janeiro.
+- **Atualização repetida.** No v9, cada clique em "Executar" ou "Atualizar ELOs" aplicava
+  de novo todos os jogos já disputados sobre as forças já atualizadas; os números dependiam
+  de quantas vezes o botão tinha sido apertado. Aqui a força sai sempre da semente mais os
+  resultados, e a mesma entrada dá a mesma saída.
+- **Tabela e placares à mão.** O v7 tinha as rodadas 4 a 8 erradas e o v9 as corrigiu; o
+  v9 ainda guardava um 3 a 0 que a FPF registra como 4 a 0. É o argumento da decisão 4.
+- **O que o v9 mostrava e o app ainda não mostra.** Jogos com probabilidade por partida e
+  placar editável; classificação real ao lado da projeção; ranking de força com a variação
+  desde a última atualização. Os três dependem de haver tabela e jogos, e entram com ela.
+- **O que veio de lá agora.** Matriz de posições colorida por zona (verde para quem
+  avança, vermelho para quem cai), tabela de quantos pontos bastam, verde no lugar do azul
+  para chance boa e tema escuro por botão.
+- **O que não veio.** Seletor de modelo (Poisson ou Elo) e de velocidade de atualização: o
+  backtest escolheu uma configuração, e expor as outras seria publicar números não medidos.
+
 ## Premissas rotuladas (trocar quando os regulamentos de 2027 saírem)
 
 - Final do A1 em ida e volta. A FPF quer duas partidas, mas depende do calendário.

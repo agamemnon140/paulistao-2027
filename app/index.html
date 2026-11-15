@@ -4,8 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Chances de cada clube no Campeonato Paulista de 2027, Séries A1 e A2, por simulação." />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eef0f3" />
+    <!-- O tema escolhido entra antes de a página ser desenhada, para não piscar no tema errado. -->
+    <script>
+      try {
+        var t = localStorage.getItem('paulistao-tema');
+        if (t === 'claro' || t === 'escuro') document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    </script>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icone.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icone-180.png" />

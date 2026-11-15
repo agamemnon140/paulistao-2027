@@ -16,6 +16,23 @@ export default function App({ inicial = {} }) {
   const [erro, setErro] = useState(null);
   const worker = useRef(null), pedidos = useRef(new Set());
 
+  // Tema: o do aparelho até a pessoa escolher; a escolha fica guardada no navegador.
+  const [tema, setTema] = useState('claro');
+  useEffect(() => {
+    const guardado = document.documentElement.dataset.tema;
+    setTema(guardado || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro'));
+  }, []);
+  useEffect(() => {
+    const cor = getComputedStyle(document.documentElement).getPropertyValue('--fundo').trim();
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', cor);
+  }, [tema]);
+  const trocarTema = () => {
+    const novo = tema === 'escuro' ? 'claro' : 'escuro';
+    document.documentElement.dataset.tema = novo;
+    try { localStorage.setItem('paulistao-tema', novo); } catch { /* sem armazenamento, vale só nesta visita */ }
+    setTema(novo);
+  };
+
   useEffect(() => {
     const w = new Worker(urlDoWorker, { type: 'module' });
     w.onmessage = ({ data }) => {
@@ -45,10 +62,13 @@ export default function App({ inicial = {} }) {
           <span className="bandeira" aria-hidden="true"><span /></span>
           <h1>Paulistão 2027</h1>
         </div>
-        <div className="divisoes" role="group" aria-label="Divisão">
-          {SIGLAS.map(d => (
-            <button key={d} type="button" aria-pressed={d === sigla} onClick={() => setSigla(d)}>Série {d}</button>
-          ))}
+        <div className="controles">
+          <div className="divisoes" role="group" aria-label="Divisão">
+            {SIGLAS.map(d => (
+              <button key={d} type="button" aria-pressed={d === sigla} onClick={() => setSigla(d)}>Série {d}</button>
+            ))}
+          </div>
+          <button type="button" className="tema" onClick={trocarTema}>{tema === 'escuro' ? 'Tema claro' : 'Tema escuro'}</button>
         </div>
       </header>
 
