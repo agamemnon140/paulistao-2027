@@ -142,8 +142,11 @@ Do que a decisão 12 e a 14 pedem, ficou de fora:
 - **Edição manual de resultados.** Sem a tabela oficial não há jogo com mando para editar;
   entra junto com a tabela, em dezembro.
 
-O Pages do repositório precisa estar com a fonte "GitHub Actions" (Settings, Pages). A
-sessão que montou o app não tinha acesso a essa configuração.
+Publicado em 14/11/2026 em https://agamemnon140.github.io/paulistao-2027/ (o Pages do
+repositório está com a fonte "GitHub Actions"). Conferido no ar no mesmo dia: as duas
+divisões simulam, as seis seções abrem, e tudo o que a página carrega fica guardado para
+uso sem rede já na primeira visita. Abrir de fato sem rede foi testado na cópia local, com
+`scripts/qa/semrede.py`; no site publicado não há como cortar a rede pela automação.
 
 ## Premissas rotuladas (trocar quando os regulamentos de 2027 saírem)
 
