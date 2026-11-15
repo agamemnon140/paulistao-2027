@@ -515,15 +515,23 @@
   "mata-mata em ida e volta com pênaltis, volta na casa da melhor campanha (formato vem de uma única matéria)",
   "sobem os dois finalistas"
  ],
+ "semente": {
+  "tipo": "brasileiro",
+  "forma": "log",
+  "razao": 1.25,
+  "base": "data/nacional/classificacoes_2026.json",
+  "provisoria": true,
+  "_obs": "Colocação nacional de 2026 na escada A→D, com o posto em logaritmo, amplitude 1,25 (docs/DECISOES.md, 17). Provisória enquanto a Série A de 2026 não acabar: reler a base e trocar para false."
+ },
  "gols": {
   "liga": {
    "total": 2.31,
-   "pesoCasa": 0.58
+   "pesoCasa": 0.55
   },
   "mataMata": {
-   "total": 2.31,
-   "pesoCasa": 0.65
+   "total": 1.85,
+   "pesoCasa": 0.55
   },
-  "_obs": "total = média observada na 1ª fase da A2 de 2022 a 2026 (600 jogos). pesoCasa herdado do REPORT do brasileiro-2026; só muda se o backtest medir viés de casa significativo."
+  "_obs": "Liga: total = média observada na 1ª fase da A2 de 2022 a 2026 (600 jogos); pesoCasa 0,55 porque 0,58 exagera o mandante na escolha e na confirmação do backtest. Mata-mata: 1,85 gol por jogo (1,84 medido em 62 jogos de 2022 a 2026) e o mesmo pesoCasa (docs/DECISOES.md, 18 e 19)."
  }
 }

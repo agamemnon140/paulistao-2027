@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { classificar } from '../scripts/fpf.mjs';
+import { nacionalPorAno } from '../scripts/nacional.mjs';
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ler = rel => JSON.parse(fs.readFileSync(path.join(RAIZ, rel), 'utf8'));
@@ -38,16 +39,5 @@ export function escadasEstaduais() {
   return esc;
 }
 
-// Situação nacional: {2021: {clube: {serie, pos}}} para 2021–2025, e só a série para 2026.
-export function nacional() {
-  const C = ler('data/nacional/classificacoes_2021_2025.json').classificacoes;
-  const P = ler('data/nacional/paulistas.json');
-  const nac = {};
-  for (const [chave, linhas] of Object.entries(C)) {
-    const ano = chave.slice(0, 4), serie = chave[4];
-    for (const x of linhas) if (P.apelidos[x.n]) (nac[ano] ||= {})[P.apelidos[x.n]] = { serie, pos: x.pos };
-  }
-  nac[2026] = {};
-  for (const [serie, clubes] of Object.entries(P.divisao2026)) for (const c of clubes) nac[2026][c] = { serie, pos: null };
-  return nac;
-}
+// Situação nacional: {2021: {clube: {serie, pos}}} de 2021 a 2026 (scripts/nacional.mjs).
+export const nacional = () => nacionalPorAno().nac;

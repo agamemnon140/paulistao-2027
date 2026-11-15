@@ -100,7 +100,7 @@ test('elos: faixa fixa, iguais no meio, razão 1 apaga a semente', () => {
   const ig = elos(t.notas.iguais, t.times);
   assert.ok(t.times.every(x => ig[x] === (ELO_MIN + ELO_MAX) / 2));
   const base = preverTemporada({ times: t.times, jogos: t.jogos, getElo: x => ig[x], razao: 1 });
-  for (const cand of ['divisao', 'brasileiro', 'paulista', 'composta']) {
+  for (const cand of ['divisao', 'brasileiro', 'brasileiroRaiz', 'brasileiroLog', 'paulista', 'composta']) {
     const s = semear('A1', 2026, cand);
     const p = preverTemporada({ times: s.times, jogos: s.jogos, getElo: s.getElo, razao: 1 });
     p.forEach((x, i) => assert.ok(perto(x.pH, base[i].pH) && perto(x.pD, base[i].pD), cand));
@@ -135,38 +135,58 @@ test('controle negativo: a semente invertida perde do piso nas duas divisões', 
 });
 
 test('leitura registrada em DECISOES: A1', () => {
-  const D = S.divisoes.A1;
+  const D = S.divisoes.A1, esc = S.decisao.semente;
   for (const c of S.candidatas) {
     assert.equal(D.porAno[c].filter(a => a.dif < 0).length, 4, `${c} bate o piso nos quatro anos`);
     assert.ok(D.melhor[c].contraPiso.ic95[1] < 0, `${c}: IC exclui zero`);
   }
-  assert.equal(D.melhor.brasileiro.razao, 1.5);
-  // brasileiro e composta empatam; brasileiro não perde da divisão em nenhum dos dois conjuntos.
-  const bc = D.pares['brasileiro − composta'].escolha, db = D.pares['divisao − brasileiro'];
-  assert.ok(bc.ic95[0] < 0 && bc.ic95[1] > 0);
-  assert.ok(db.escolha.dif > 0 && db.confirmacao.dif > 0);
-  // A amplitude do Brasileirão (3,0) é pior do que não semear.
+  // A semente decidida é a de menor Brier na escolha, na razão em que o Brier é mínimo.
+  assert.equal(esc, 'brasileiroLog');
+  assert.equal(D.vencedoraNaEscolha, esc);
+  assert.equal(D.melhor[esc].razao, S.decisao.A1.razao);
+  // Contra a escada linear: IC exclui zero na escolha, mesmo sinal em 2026, e ganha em cada
+  // um dos quatro anos. Contra raiz e composta o IC cruza zero.
+  const lin = D.pares['brasileiro − brasileiroLog'];
+  assert.ok(lin.escolha.ic95[0] > 0 && lin.confirmacao.dif > 0);
+  D.porAno[esc].forEach((a, i) => assert.ok(a.dif < D.porAno.brasileiro[i].dif && a.dif < D.porAno.brasileiroRaiz[i].dif, `log ganha em ${a.ano}`));
+  assert.ok(D.confirmacao[esc].brier < D.confirmacao.brasileiro.brier && D.confirmacao[esc].brier < D.confirmacao.brasileiroRaiz.brier);
+  for (const par of ['brasileiroRaiz − brasileiroLog', 'brasileiroLog − composta']) assert.ok(D.pares[par].escolha.ic95[0] < 0 && D.pares[par].escolha.ic95[1] > 0, par);
+  // A vantagem do logaritmo está nos jogos do Palmeiras; fora deles o IC cruza zero.
+  assert.ok(D.forma['jogos do Palmeiras'].escolha.ic95[1] < 0);
+  for (const r of ['jogos sem o Palmeiras', 'jogos sem os quatro grandes']) assert.ok(D.forma[r].escolha.dif < 0 && D.forma[r].escolha.ic95[1] > 0, r);
+  const F = S.faixas;
+  assert.ok(F.brasileiro.Palmeiras.t > 2 && F.brasileiro['Série B no ano anterior'].t < -2);
+  for (const g of Object.values(F[esc])) assert.ok(Math.abs(g.t) < 2);
+  // Com a escada linear, a amplitude do Brasileirão (3,0) é pior do que não semear.
   for (const c of ['divisao', 'brasileiro', 'paulista']) assert.ok(D.melhor[c].herdada > D.piso.brier, c);
-  // Mando: viés não significativo com o peso padrão; mata-mata com 0,65 também não.
+  // Mando: viés não significativo com o peso padrão; mata-mata com 0,65 também não, e
+  // baixar para o peso da liga piora o Brier.
   assert.ok(Math.abs(D.mando.padrao.escolha.zCasa) < 2 && Math.abs(D.mando.padrao.confirmacao.zCasa) < 2);
-  assert.ok(Math.abs(D.mando.mataMata[0].zCasa) < 2);
+  assert.ok(Math.abs(D.mando.mataMata[0].zCasa) < 2 && D.mando.mataMata[1].brier > D.mando.mataMata[0].brier);
+  // O preset conservador é o de menor Brier.
+  assert.ok(D.presets.conservador < D.presets.base && D.presets.base < D.presets.agressivo);
 });
 
 test('leitura registrada em DECISOES: A2', () => {
-  const D = S.divisoes.A2, br = r => D.curvas.brasileiro.find(p => p.razao === r);
-  // A escada estadual não ajuda em razão nenhuma.
+  const D = S.divisoes.A2, esc = S.decisao.semente, em = r => D.curvas[esc].find(p => p.razao === r);
+  // A escada estadual não ajuda em razão nenhuma, e a forma da escada nacional é indiferente.
   assert.equal(D.melhor.paulista.razao, 1);
+  assert.ok(Math.abs(D.pares['brasileiro − brasileiroLog'].escolha.dif) < 0.001);
   // A semente nacional ajuda pouco: com 1,25 o IC exclui zero, com 1,50 já não.
-  assert.ok(br(1.25).contraPiso.ic95[1] < 0 && br(1.25).cincoAnos.ic95[1] < 0 && br(1.25).confirmacao.dif < 0);
-  assert.ok(br(1.5).contraPiso.ic95[1] > 0);
-  assert.ok(br(3).brier > D.piso.brier);
+  assert.equal(S.decisao.A2.razao, 1.25);
+  assert.ok(em(1.25).contraPiso.ic95[1] < 0 && em(1.25).cincoAnos.ic95[1] < 0 && em(1.25).confirmacao.dif < 0);
+  assert.equal(em(1.25).anosQueBatemOPiso, 3);
+  assert.ok(em(1.5).contraPiso.ic95[1] > 0 && em(1.5).anosQueBatemOPiso === 2);
+  assert.ok(em(3).brier > D.piso.brier);
   // Mando: com 0,58 o modelo exagera o mandante nos dois conjuntos; com 0,55 não.
   assert.ok(D.mando.padrao.escolha.zCasa > 2 && D.mando.padrao.confirmacao.zCasa > 2);
   const w55 = D.mando.varredura.find(v => v.pesoCasa === 0.55);
   assert.ok(Math.abs(w55.escolha.zCasa) < 2 && w55.escolha.brier < D.mando.varredura.find(v => v.pesoCasa === GOLS_PADRAO.liga.pesoCasa).escolha.brier);
+  assert.equal(S.decisao.A2.gols.liga.pesoCasa, 0.55);
   // Empates subestimados na 1ª fase; mata-mata com 0,65 exagera o mandante.
   assert.ok(D.mando.padrao.escolha.zEmpate < -2);
   assert.ok(D.mando.mataMata[0].zCasa > 2);
+  assert.ok(Math.abs(D.medido.mataMata.gols - S.decisao.A2.gols.mataMata.total) < 0.02);
 });
 
 test('promoção e rebaixamento: os grupos têm o tamanho que o formato impõe', () => {
@@ -193,9 +213,9 @@ test('leitura registrada em DECISOES: promoção e rebaixamento', () => {
   // dos dois se distingue de zero.
   const sobe = M.conjunto['subiu de série nacional (A1 e A2)'], cai = M.conjunto['caiu de série nacional (A1 e A2)'];
   assert.ok(sobe.residuo < 0 && cai.residuo > 0 && semEfeito(sobe) && semEfeito(cai));
-  assert.deepEqual([sobe.n, sobe.abaixoDoEsperado, cai.n, cai.abaixoDoEsperado], [12, 10, 6, 2]);
+  assert.deepEqual([sobe.n, sobe.abaixoDoEsperado, cai.n, cai.abaixoDoEsperado], [12, 9, 6, 2]);
   // A2: quem joga série nacional no ano rende acima da semente; quem não tem, abaixo.
   const com = M.conjunto['A2: joga série nacional no ano'], sem = M.conjunto['A2: sem série nos dois anos'];
-  assert.ok(com.residuo > 0 && sem.residuo < 0 && semEfeito(com) && semEfeito(sem));
+  assert.ok(com.residuo > 0 && sem.residuo < 0 && semEfeito(sem));
   assert.equal(com.entreOsOito, 12);
 });

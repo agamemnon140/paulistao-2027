@@ -15,22 +15,29 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { initLeague, calcL, calcProbs, updR, mlDe } from '../engine/core.mjs';
 import { CFG_MODELO } from '../engine/config.mjs';
+import { comAmplitude } from '../engine/semente.mjs';
 import { ANOS, SIGLAS, temporada, escadasEstaduais, nacional } from './dados.mjs';
 import { notas, elos } from './sementes.mjs';
 import { resumo, difBrier } from './metricas.mjs';
 import { relatorio } from './relatorio.mjs';
-import { residuosDaTemporada, movimento } from './movimento.mjs';
+import { residuosDaTemporada, movimento, faixas } from './movimento.mjs';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 export const RAZOES = [1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5, 6, 8];
-export const CANDIDATAS = ['divisao', 'brasileiro', 'paulista', 'composta'];
+export const CANDIDATAS = ['divisao', 'brasileiro', 'brasileiroRaiz', 'brasileiroLog', 'paulista', 'composta'];
 export const ESCOLHA = [2022, 2023, 2024, 2025], CONFIRMACAO = [2026];
 export const PESOS_CASA = [0.50, 0.52, 0.54, 0.55, 0.56, 0.57, 0.58, 0.60, 0.62];
 export const GOLS_PADRAO = { liga: { total: 2.31, pesoCasa: 0.58 }, mataMata: { total: 2.31, pesoCasa: 0.65 } };
 
-// Semente, amplitude e mando propostos em docs/DECISOES.md (17 e 18). Só a análise de
-// promoção e rebaixamento usa isto; a escolha em si sai das curvas, não daqui.
-export const PROPOSTA = { semente: 'brasileiro', A1: { razao: 1.5, gols: { total: 2.31, pesoCasa: 0.58 } }, A2: { razao: 1.25, gols: { total: 2.31, pesoCasa: 0.55 } } };
+// O que foi decidido com este backtest (docs/DECISOES.md, 17 a 19). As seções de mando,
+// de forma da escada e de promoção e rebaixamento partem daqui; a escolha em si sai das
+// curvas e das comparações pareadas, não desta constante.
+export const DECISAO = {
+  semente: 'brasileiroLog',
+  A1: { razao: 2, gols: { liga: { total: 2.31, pesoCasa: 0.58 }, mataMata: { total: 2.31, pesoCasa: 0.65 } } },
+  A2: { razao: 1.25, gols: { liga: { total: 2.31, pesoCasa: 0.55 }, mataMata: { total: 1.85, pesoCasa: 0.55 } } }
+};
+export const GRANDES = ['Palmeiras', 'Corinthians', 'São Paulo', 'Santos'];
 
 // Jogo eliminatório (λ de mata-mata). Fases de grupos depois da 1ª — a 2ª fase da A2 de
 // 2026 — são pontos corridos e usam o λ de liga.
@@ -40,7 +47,7 @@ export const ehMataMata = j => /QUARTAS|SEMI|FINAL/.test(j.fase);
 // o λ de base muda entre liga e mata-mata (test/eval.test.mjs confere que, com os dois
 // iguais, o resultado é idêntico ao do motor).
 export function preverTemporada({ times, jogos, getElo, razao, gols = GOLS_PADRAO, ak = 'conservador' }) {
-  const cfg = { ...CFG_MODELO, targetRatio: razao, maxSpread: 50 };
+  const cfg = comAmplitude(CFG_MODELO, razao);
   const lg = initLeague(times, getElo, cfg);
   const liga = mlDe(gols.liga), mata = mlDe(gols.mataMata);
   const el = {}, at = {}, df = {};
@@ -50,7 +57,7 @@ export function preverTemporada({ times, jogos, getElo, razao, gols = GOLS_PADRA
     const { lC, lF } = calcL(at[j.casa], df[j.casa], at[j.fora], df[j.fora], el[j.casa], el[j.fora], ml.mc, ml.mf, cfg.homeAdv, false);
     const pr = calcProbs(lC, lF);
     updR(el, at, df, j.casa, j.fora, j.gc, j.gf, lC, lF, cfg, ak, false);
-    return { pH: pr.pH / 100, pD: pr.pD / 100, pA: pr.pA / 100, oH: j.gc > j.gf ? 1 : 0, oD: j.gc === j.gf ? 1 : 0, oA: j.gc < j.gf ? 1 : 0, primeira: j.numFase === 1, ko };
+    return { pH: pr.pH / 100, pD: pr.pD / 100, pA: pr.pA / 100, oH: j.gc > j.gf ? 1 : 0, oD: j.gc === j.gf ? 1 : 0, oA: j.gc < j.gf ? 1 : 0, primeira: j.numFase === 1, ko, casa: j.casa, fora: j.fora };
   });
 }
 
@@ -120,13 +127,20 @@ export function principal({ gravar = true } = {}) {
     }
     // Controle negativo: a semente `brasileiro` invertida tem de perder do piso.
     D.controleInvertido = difBrier(prever(sigla, 'brasileiro', 1.5, ESCOLHA, { inverter: true }), piso);
-    // Mando: viés de casa na 1ª fase com a semente `brasileiro` na sua razão (a mais simples
-    // entre as que usam posição), e varredura do peso do mando.
-    const ref = 'brasileiro', rRef = D.melhor[ref].razao;
+    // Forma da escada: de onde vem a vantagem do logaritmo sobre a escada linear? Cada
+    // forma na sua razão, em recortes dos mesmos jogos.
+    const comGrande = p => GRANDES.includes(p.casa) || GRANDES.includes(p.fora), comLider = p => p.casa === GRANDES[0] || p.fora === GRANDES[0];
+    D.forma = Object.fromEntries([['todos os jogos', () => true], [`jogos do ${GRANDES[0]}`, comLider], [`jogos sem o ${GRANDES[0]}`, p => !comLider(p)], ['jogos com algum dos quatro grandes', comGrande], ['jogos sem os quatro grandes', p => !comGrande(p)]].map(([rotulo, filtro]) => {
+      const par = anos => { const a = prever(sigla, 'brasileiroLog', D.melhor.brasileiroLog.razao, anos).filter(filtro), b = prever(sigla, 'brasileiro', D.melhor.brasileiro.razao, anos).filter(filtro); return a.length ? { n: a.length, ...difBrier(a, b) } : null; };
+      return [rotulo, { escolha: par(ESCOLHA), cincoAnos: par(TODOS) }];
+    }));
+    // Mando: viés de casa na 1ª fase com a semente e a amplitude decididas, partindo dos
+    // gols herdados, e varredura do peso do mando.
+    const ref = DECISAO.semente, rRef = DECISAO[sigla].razao;
     const so = (ps, f) => ps.filter(f);
     D.mando = {
       semente: ref, razao: rRef,
-      padrao: { pesoCasa: GOLS_PADRAO.liga.pesoCasa, escolha: resumo(so(P[ref], p => p.primeira)), confirmacao: resumo(so(prever(sigla, ref, rRef, CONFIRMACAO), p => p.primeira)) },
+      padrao: { pesoCasa: GOLS_PADRAO.liga.pesoCasa, escolha: resumo(so(prever(sigla, ref, rRef, ESCOLHA), p => p.primeira)), confirmacao: resumo(so(prever(sigla, ref, rRef, CONFIRMACAO), p => p.primeira)) },
       varredura: PESOS_CASA.map(w => {
         const gols = { ...GOLS_PADRAO, liga: { ...GOLS_PADRAO.liga, pesoCasa: w } };
         const e = resumo(so(prever(sigla, ref, rRef, ESCOLHA, { gols }), p => p.primeira)), c = resumo(so(prever(sigla, ref, rRef, CONFIRMACAO, { gols }), p => p.primeira));
@@ -148,12 +162,19 @@ export function principal({ gravar = true } = {}) {
     // Sensibilidade ao preset de atualização (não é ajuste: só informa).
     D.presets = Object.fromEntries(['conservador', 'base', 'agressivo'].map(ak => [ak, resumo(prever(sigla, ref, rRef, ESCOLHA, { ak })).brier]));
   }
-  // Promoção e rebaixamento: resíduo de cada clube-temporada contra a semente proposta.
-  saida.proposta = PROPOSTA;
-  saida.movimento = movimento(SIGLAS.flatMap(sigla => TODOS.flatMap(ano => {
+  // Promoção e rebaixamento, e faixas da escada: resíduo de cada clube-temporada contra a
+  // semente decidida; para as faixas do A1, também contra a escada linear.
+  saida.decisao = DECISAO;
+  const linhas = (semente, razaoDe, golsDe) => SIGLAS.flatMap(sigla => TODOS.flatMap(ano => {
     const t = T[sigla + ano];
-    return residuosDaTemporada({ sigla, ano, times: t.times, jogos: t.jogos, nota: t.notas[PROPOSTA.semente], razao: PROPOSTA[sigla].razao, gols: PROPOSTA[sigla].gols, escadas, nac });
-  })));
+    return residuosDaTemporada({ sigla, ano, times: t.times, jogos: t.jogos, nota: t.notas[semente], razao: razaoDe(sigla), gols: golsDe(sigla), escadas, nac });
+  }));
+  const decididas = linhas(DECISAO.semente, s => DECISAO[s].razao, s => DECISAO[s].gols.liga);
+  saida.movimento = movimento(decididas);
+  saida.faixas = {
+    [DECISAO.semente]: faixas(decididas.filter(l => l.sigla === 'A1'), GRANDES),
+    brasileiro: faixas(linhas('brasileiro', s => saida.divisoes[s].melhor.brasileiro.razao, s => DECISAO[s].gols.liga).filter(l => l.sigla === 'A1'), GRANDES)
+  };
   if (gravar) {
     const texto = serializar(saida);
     fs.mkdirSync(path.join(AQUI, 'out'), { recursive: true });

@@ -1,0 +1,215 @@
+{
+ "_obs": "Gerado por `node scripts/projetar.mjs --sementes`; não editar. Elo de partida de cada clube, pela colocação nacional do ano anterior (engine/semente.mjs).",
+ "A1": {
+  "tipo": "brasileiro",
+  "forma": "log",
+  "razao": 2,
+  "anoBase": 2026,
+  "lidoEm": "2026-11-14",
+  "provisoria": true,
+  "clubes": {
+   "Palmeiras": {
+    "serie": "A",
+    "pos": 2,
+    "posto": 2,
+    "elo": 1750
+   },
+   "Corinthians": {
+    "serie": "A",
+    "pos": 17,
+    "posto": 17,
+    "elo": 1556.514
+   },
+   "São Paulo": {
+    "serie": "A",
+    "pos": 10,
+    "posto": 10,
+    "elo": 1604.4888
+   },
+   "Santos": {
+    "serie": "A",
+    "pos": 9,
+    "posto": 9,
+    "elo": 1614.0145
+   },
+   "Novorizontino": {
+    "serie": "B",
+    "pos": 1,
+    "posto": 17,
+    "elo": 1556.514
+   },
+   "Red Bull Bragantino": {
+    "serie": "A",
+    "pos": 8,
+    "posto": 8,
+    "elo": 1624.6634
+   },
+   "Portuguesa-SP": {
+    "serie": "D",
+    "pos": 10,
+    "posto": 58,
+    "elo": 1445.5587
+   },
+   "Capivariano": {
+    "serie": null,
+    "pos": null,
+    "posto": 96,
+    "elo": 1400
+   },
+   "Guarani": {
+    "serie": "C",
+    "pos": 10,
+    "posto": 42,
+    "elo": 1474.741
+   },
+   "Botafogo-SP": {
+    "serie": "B",
+    "pos": 12,
+    "posto": 28,
+    "elo": 1511.3996
+   },
+   "Mirassol": {
+    "serie": "A",
+    "pos": 14,
+    "posto": 14,
+    "elo": 1574.0679
+   },
+   "Primavera-SP": {
+    "serie": null,
+    "pos": null,
+    "posto": 96,
+    "elo": 1400
+   },
+   "São Bernardo": {
+    "serie": "B",
+    "pos": 11,
+    "posto": 27,
+    "elo": 1514.6877
+   },
+   "Noroeste": {
+    "serie": "D",
+    "pos": 47,
+    "posto": 95,
+    "elo": 1400.9467
+   },
+   "Juventus": {
+    "serie": null,
+    "pos": null,
+    "posto": 96,
+    "elo": 1400
+   },
+   "Ferroviária": {
+    "serie": "C",
+    "pos": 2,
+    "posto": 34,
+    "elo": 1493.8457
+   }
+  }
+ },
+ "A2": {
+  "tipo": "brasileiro",
+  "forma": "log",
+  "razao": 1.25,
+  "anoBase": 2026,
+  "lidoEm": "2026-11-14",
+  "provisoria": true,
+  "clubes": {
+   "Água Santa": {
+    "serie": "D",
+    "pos": 38,
+    "posto": 86,
+    "elo": 1404.5856
+   },
+   "Inter de Limeira": {
+    "serie": "C",
+    "pos": 4,
+    "posto": 36,
+    "elo": 1750
+   },
+   "Ituano": {
+    "serie": "C",
+    "pos": 15,
+    "posto": 47,
+    "elo": 1644.2416
+   },
+   "Linense": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Marília": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Monte Azul": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Osasco Sporting": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Ponte Preta": {
+    "serie": "B",
+    "pos": 20,
+    "posto": 36,
+    "elo": 1750
+   },
+   "Portuguesa Santista": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Santo André": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "São José-SP": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Sertãozinho": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Taubaté": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "Velo Clube": {
+    "serie": "D",
+    "pos": 30,
+    "posto": 78,
+    "elo": 1443.3139
+   },
+   "Votuporanguense": {
+    "serie": null,
+    "pos": null,
+    "posto": 87,
+    "elo": 1400
+   },
+   "XV de Piracicaba": {
+    "serie": "D",
+    "pos": 24,
+    "posto": 72,
+    "elo": 1475.0629
+   }
+  }
+ }
+}

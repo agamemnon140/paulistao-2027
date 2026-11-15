@@ -13,7 +13,8 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 | Histórico 2022–2026, A1 e A2 (`data/fpf/`) | 1.184 jogos da fonte oficial; 2026 fecha com as classificações publicadas |
 | Coleta automática pela Action | Bloqueada: a FPF responde 403 ao runner do GitHub |
 | Formato do Paulista (`engine/paulista.mjs`): mando sorteado, desempate, mata-mata, A1 e A2 | Feito; regras conferidas contra o que aconteceu em 2026 |
-| Backtest das sementes (`eval/`) | Feito para quatro sementes; resultado em [`eval/RELATORIO.md`](eval/RELATORIO.md). Semente e mando propostos em `docs/DECISOES.md`, aguardando confirmação |
+| Backtest das sementes (`eval/`) | Feito para seis sementes; resultado em [`eval/RELATORIO.md`](eval/RELATORIO.md), decisões em `docs/DECISOES.md` (17 a 19) |
+| Projeção pré-tabela (`scripts/projetar.mjs`, `predictions.jsonl`) | Feita em 14/11/2026 com sementes provisórias: a Série A de 2026 ainda não acabou |
 | Interface, arquivo de previsões, ingestão de 2027 | Não feitos |
 
 ## Rodar
@@ -23,6 +24,8 @@ Não há dependências; basta Node 22 ou mais novo.
 ```bash
 npm test                                   # paridade com o motor, leitor da FPF, formato, backtest
 node eval/backtest.mjs                     # refaz eval/out/backtest.json e eval/RELATORIO.md
+node scripts/projetar.mjs                  # projeção das duas divisões (20.000 temporadas cada)
+node scripts/projetar.mjs --arquivar       # idem, e acrescenta a predictions.jsonl se algo mudou
 node scripts/coletar_fpf.mjs --comp A1,A2 --anos 2022-2026
 ```
 
@@ -63,6 +66,16 @@ anteriores da temporada, para cada semente candidata e cada amplitude, escolhe e
 2022–2025 e confirma em 2026. `eval/RELATORIO.md` é gerado, não editado: `npm test` falha
 se ele e o código divergirem, e os testes também fixam cada afirmação que
 `docs/DECISOES.md` faz sobre o resultado.
+
+## Projeção e arquivo de previsões
+
+A semente de cada clube sai de `engine/semente.mjs`, o mesmo módulo que o backtest usa:
+colocação nacional do ano anterior, posto em logaritmo, amplitude por divisão.
+`data/2027/sementes.json` é gerado (`node scripts/projetar.mjs --sementes`) a partir de
+`data/nacional/`; o teste falha se ele estiver defasado. `predictions.jsonl` só cresce:
+cada linha é o que o modelo dizia num momento, com a configuração e uma impressão digital
+das entradas (dados, sementes e código do motor). Enquanto a impressão da última linha for
+a de hoje, o teste refaz a simulação e exige as mesmas probabilidades.
 
 ## Paridade com o motor original
 

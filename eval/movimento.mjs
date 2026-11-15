@@ -6,6 +6,7 @@
 
 import { initLeague, calcL, calcProbs, mlDe } from '../engine/core.mjs';
 import { CFG_MODELO } from '../engine/config.mjs';
+import { comAmplitude } from '../engine/semente.mjs';
 import { elos } from './sementes.mjs';
 
 const NIVEL = { A: 4, B: 3, C: 2, D: 1 };
@@ -13,7 +14,7 @@ const NIVEL = { A: 4, B: 3, C: 2, D: 1 };
 // Uma linha por clube-temporada: movimento estadual, movimento nacional e resíduo.
 export function residuosDaTemporada({ sigla, ano, times, jogos, nota, razao, gols, escadas, nac }) {
   const e = elos(nota, times);
-  const lg = initLeague(times, t => e[t], { ...CFG_MODELO, targetRatio: razao, maxSpread: 50 });
+  const lg = initLeague(times, t => e[t], comAmplitude(CFG_MODELO, razao));
   const ad = Object.fromEntries(times.map(t => [t, lg.initAD(e[t])])), ml = mlDe(gols);
   const acc = Object.fromEntries(times.map(t => [t, { jogos: 0, pontos: 0, esperado: 0 }]));
   for (const j of jogos.filter(j => j.numFase === 1)) {
@@ -55,5 +56,19 @@ export function movimento(linhas) {
       'A2: sem série nos dois anos': grupo(de('A2').filter(l => !l.serieNoAno && !l.serieAntes))
     },
     casos: linhas.filter(l => l.estadual !== 'permaneceu' || l.nacional === 'subiu' || l.nacional === 'caiu')
+  };
+}
+
+// Resíduo por faixa da escada nacional (só faz sentido no A1, onde há clubes de todas).
+export function faixas(linhas, grandes) {
+  const [lider, ...outros] = grandes;
+  return {
+    [lider]: grupo(linhas.filter(l => l.time === lider)),
+    'outros três grandes': grupo(linhas.filter(l => outros.includes(l.time))),
+    'demais clubes da Série A': grupo(linhas.filter(l => !grandes.includes(l.time) && l.serieAntes === 'A')),
+    'Série B no ano anterior': grupo(linhas.filter(l => l.serieAntes === 'B')),
+    'Série C no ano anterior': grupo(linhas.filter(l => l.serieAntes === 'C')),
+    'Série D no ano anterior': grupo(linhas.filter(l => l.serieAntes === 'D')),
+    'sem série no ano anterior': grupo(linhas.filter(l => !l.serieAntes))
   };
 }

@@ -8,7 +8,7 @@ const z = x => (x < 0 ? '−' : '') + Math.abs(x).toFixed(2).replace('.', ',');
 const ic = d => `${s4(d.dif)} [${s4(d.ic95[0])}; ${s4(d.ic95[1])}]`;
 const marca = d => (d.ic95[1] < 0 || d.ic95[0] > 0 ? ' ✱' : '');
 const tabela = (cab, linhas) => [`| ${cab.join(' | ')} |`, `|${cab.map(() => '---').join('|')}|`, ...linhas.map(l => `| ${l.join(' | ')} |`)].join('\n');
-const NOME = { divisao: 'divisão', brasileiro: 'brasileiro', paulista: 'paulista', composta: 'composta' };
+const NOME = { divisao: 'divisão', brasileiro: 'brasileiro', brasileiroRaiz: 'brasileiro (raiz)', brasileiroLog: 'brasileiro (log)', paulista: 'paulista', composta: 'composta' };
 
 export function relatorio(S) {
   const o = [];
@@ -25,8 +25,11 @@ números e o que foi decidido com eles estão em \`docs/DECISOES.md\`.
   treinado só nos jogos anteriores da mesma temporada, depois entra na atualização.
 - **Sementes** (só informação anterior ao campeonato do ano Y):
   \`divisão\` = série nacional que o clube disputa em Y; \`brasileiro\` = colocação nacional
-  em Y−1 na escada A→D; \`paulista\` = colocação na 1ª fase estadual de Y−1 na escada
-  A1→A3; \`composta\` = média das duas últimas; piso = todos iguais.
+  em Y−1 na escada A→D (posto 1 a 20 na A, 17 a 36 na B, e assim por diante; sem série =
+  um degrau abaixo do pior do grupo); \`brasileiro (raiz)\` e \`brasileiro (log)\` = o mesmo
+  posto passado por raiz quadrada ou logaritmo, o que faz os degraus do topo valerem mais;
+  \`paulista\` = colocação na 1ª fase estadual de Y−1 na escada A1→A3; \`composta\` = média
+  de \`brasileiro\` e \`paulista\`; piso = todos iguais.
 - **Amplitude** (\`razão\`): quantas vezes a força de ataque da melhor semente supera a da
   pior. A defesa espelha, então o gol esperado do melhor contra o pior, em campo neutro,
   vale razão² vezes o do pior contra o melhor. O motor do Brasileirão usa ${f(S.razaoHerdada, 1)}.
@@ -42,7 +45,10 @@ números e o que foi decidido com eles estão em \`docs/DECISOES.md\`.
 - Duas candidatas da decisão 9 **não foram rodadas**: RNC (falta a série histórica do
   ranking de 2022 a 2025) e o estado final do modelo no Paulista anterior (precisa de um
   parâmetro de escala entre divisões que este protocolo não ajusta).
-- São 4 sementes × ${S.razoes.length} razões por divisão; os IC não são corrigidos para comparações múltiplas.
+- São ${S.candidatas.length} sementes × ${S.razoes.length} razões por divisão; os IC não são corrigidos para comparações múltiplas.
+- As formas raiz e log entraram depois: foram testadas porque os resíduos dos cinco anos
+  (2026 incluído) mostraram os quatro grandes rendendo acima da escada linear. Para elas,
+  2026 não é uma confirmação limpa; a evidência que vale é a dos anos de escolha.
 - O bootstrap trata os jogos como independentes; o z dos vieses trata as probabilidades
   como fixas. Os dois subestimam um pouco a incerteza.
 - A confirmação é uma temporada só (${S.divisoes.A1.confirmacao.piso.n} jogos no A1, ${S.divisoes.A2.confirmacao.piso.n} na A2).
@@ -80,22 +86,29 @@ ${tabela(['semente', ...S.escolha], S.candidatas.map(c => [NOME[c], ...D.porAno[
 
 ${tabela(['razão', ...S.candidatas.map(c => NOME[c])], S.razoes.map((r, i) => [f(r, 2), ...S.candidatas.map(c => f(D.curvas[c][i].brier))]))}
 
-### Semente \`brasileiro\` em cada razão
+### Semente escolhida, \`${NOME[S.decisao.semente]}\`, em cada razão
 
 ${tabela(['razão', 'Δ na escolha', 'anos que batem o piso', `Δ em ${S.confirmacao[0]}`, 'Δ nos cinco anos'],
-      D.curvas.brasileiro.filter(p => p.razao > 1 && p.razao <= 3).map(p => [f(p.razao, 2), ic(p.contraPiso) + marca(p.contraPiso), `${p.anosQueBatemOPiso}/${S.escolha.length}`, ic(p.confirmacao) + marca(p.confirmacao), ic(p.cincoAnos) + marca(p.cincoAnos)]))}
+      D.curvas[S.decisao.semente].filter(p => p.razao > 1 && p.razao <= 3).map(p => [f(p.razao, 2), ic(p.contraPiso) + marca(p.contraPiso), `${p.anosQueBatemOPiso}/${S.escolha.length}`, ic(p.confirmacao) + marca(p.confirmacao), ic(p.cincoAnos) + marca(p.cincoAnos)]))}
 
-### Comparações pareadas entre sementes
+### A semente escolhida contra as outras
 
 Diferença de Brier (primeira − segunda), cada uma na sua razão; negativo favorece a primeira.
 
-${tabela(['par', 'escolha', `${S.confirmacao[0]}`], Object.entries(D.pares).map(([k, v]) => [k.split(' − ').map(c => NOME[c]).join(' − '), ic(v.escolha) + marca(v.escolha), ic(v.confirmacao) + marca(v.confirmacao)]))}
+${tabela(['par', 'escolha', `${S.confirmacao[0]}`], Object.entries(D.pares).filter(([k]) => k.split(' − ').includes(S.decisao.semente)).map(([k, v]) => [k.split(' − ').map(c => NOME[c]).join(' − '), ic(v.escolha) + marca(v.escolha), ic(v.confirmacao) + marca(v.confirmacao)]))}
 
 Controle negativo (semente \`brasileiro\` invertida, razão 1,50, contra o piso): ${ic(D.controleInvertido)}${marca(D.controleInvertido)}.
 
+### De onde vem a vantagem do logaritmo
+
+Diferença de Brier entre \`brasileiro (log)\` e \`brasileiro\` (linear), cada uma na sua razão,
+em recortes dos mesmos jogos; negativo favorece o logaritmo.
+
+${tabela(['recorte', 'jogos na escolha', 'escolha', 'jogos nos cinco anos', 'cinco anos'], Object.entries(D.forma).filter(([, v]) => v.escolha).map(([k, v]) => [k, v.escolha.n, ic(v.escolha) + marca(v.escolha), v.cincoAnos.n, ic(v.cincoAnos) + marca(v.cincoAnos)]))}
+
 ### Mando na 1ª fase
 
-Semente \`${D.mando.semente}\`, razão ${f(D.mando.razao, 2)}. Viés = previsto − observado, em pontos percentuais; z entre parênteses.
+Semente \`${NOME[D.mando.semente]}\`, razão ${f(D.mando.razao, 2)}. Viés = previsto − observado, em pontos percentuais; z entre parênteses.
 
 ${tabela(['peso do mandante', 'viés mandante', 'viés empate', 'viés visitante', 'Brier', `viés mandante ${S.confirmacao[0]}`, `Brier ${S.confirmacao[0]}`],
       D.mando.varredura.map(v => [f(v.pesoCasa, 2) + (v.pesoCasa === D.mando.padrao.pesoCasa ? ' (padrão)' : ''), `${pp(v.escolha.viesCasa)} (${z(v.escolha.zCasa)})`, `${pp(v.escolha.viesEmpate)} (${z(v.escolha.zEmpate)})`, pp(v.escolha.viesFora), f(v.escolha.brier), `${pp(v.confirmacao.viesCasa)} (${z(v.confirmacao.zCasa)})`, f(v.confirmacao.brier)]))}
@@ -107,21 +120,21 @@ ${tabela(['variante', 'gols/jogo', 'peso do mandante', 'viés mandante', 'viés 
 
 ### Sensibilidade e cobertura
 
-Brier na escolha por preset de atualização (semente \`${D.mando.semente}\`): ${Object.entries(D.presets).map(([k, v]) => `${k} ${f(v)}`).join(', ')}.
+Brier na escolha por preset de atualização (semente \`${NOME[D.mando.semente]}\`): ${Object.entries(D.presets).map(([k, v]) => `${k} ${f(v)}`).join(', ')}.
 
 Clubes sem série nacional no ano anterior: ${Object.entries(D.cobertura).map(([a, c]) => `${a}: ${c.semSerieNacionalNoAnoAnterior}`).join(', ')} (de 16). Clubes fora da escada estadual: ${Object.values(D.cobertura).every(c => !c.semEscadaEstadual.length) ? 'nenhum' : Object.entries(D.cobertura).filter(([, c]) => c.semEscadaEstadual.length).map(([a, c]) => `${a}: ${c.semEscadaEstadual.join(', ')}`).join('; ')}.
 `);
   }
-  const M = S.movimento, P = S.proposta;
+  const M = S.movimento, P = S.decisao;
   const s2 = x => (x > 0 ? '+' : x < 0 ? '−' : '') + f(Math.abs(x), 2);
   const linha = (nome, g) => [nome, g.n, f(g.real, 2), f(g.esperado, 2), g.ep === null ? s2(g.residuo) : `${s2(g.residuo)} ± ${f(g.ep, 2)}`, g.t === null ? '' : s2(g.t), `${g.abaixoDoEsperado}/${g.n}`, `${g.entreOsOito}/${g.n}`, `${g.entreOsDoisUltimos}/${g.n}`];
   const cab = ['grupo', 'casos', 'pontos/jogo', 'esperado pela semente', 'resíduo ± erro-padrão', 't', 'abaixo do esperado', 'entre os 8', 'entre os 2 últimos'];
   const ROT = { estadual: { promovido: 'promovido no estadual', rebaixado: 'rebaixado no estadual', permaneceu: 'permaneceu na divisão estadual' }, nacional: { subiu: 'subiu de série nacional', caiu: 'caiu de série nacional', manteve: 'manteve a série nacional', entrou: 'entrou na Série D', saiu: 'saiu da Série D', 'sem série': 'sem série nos dois anos' } };
   o.push(`## Promoção e rebaixamento
 
-Quem mudou de divisão rende diferente do que a semente espera? Semente \`${P.semente}\` com
-a amplitude e o mando propostos (A1: ${f(P.A1.razao, 2)} e ${f(P.A1.gols.pesoCasa, 2)}; A2: ${f(P.A2.razao, 2)} e ${f(P.A2.gols.pesoCasa, 2)}), forças fixas na semente, 1ª fase,
-${S.escolha[0]}–${S.confirmacao[0]}. Resíduo = pontos por jogo reais − esperados; positivo quer dizer que o
+Quem mudou de divisão rende diferente do que a semente espera? Semente \`${NOME[P.semente]}\`
+com a amplitude e o mando decididos (A1: ${f(P.A1.razao, 2)} e ${f(P.A1.gols.liga.pesoCasa, 2)}; A2: ${f(P.A2.razao, 2)} e ${f(P.A2.gols.liga.pesoCasa, 2)}), forças fixas na semente,
+1ª fase, ${S.escolha[0]}–${S.confirmacao[0]}. Resíduo = pontos por jogo reais − esperados; positivo quer dizer que o
 grupo rende mais do que a semente previa. Movimento estadual: de onde o clube veio.
 Movimento nacional: série do ano anterior contra a série do ano. Descritivo, com poucos
 casos por grupo: |t| abaixo de 2 não distingue o resíduo de zero.
@@ -137,6 +150,16 @@ ${tabela(cab, Object.entries(M.conjunto).map(([g, x]) => linha(g, x)))}
 ### Os casos
 
 ${tabela(['divisão', 'ano', 'clube', 'estadual', 'série nacional', 'posição na 1ª fase', 'pontos/jogo', 'esperado', 'resíduo'], M.casos.map(l => [l.sigla, l.ano, l.time, l.estadual, `${l.serieAntes ?? '–'} → ${l.serieNoAno ?? '–'}`, l.posicao, f(l.real, 2), f(l.esperado, 2), s2(l.residuo)]))}
+`);
+  const F = S.faixas, fx = Object.keys(F[P.semente]);
+  const res = g => (g.ep === null ? s2(g.residuo) : `${s2(g.residuo)} ± ${f(g.ep, 2)}`);
+  o.push(`## Faixas da escada no A1
+
+O mesmo resíduo, por faixa da escada nacional, com a escada linear (razão ${f(S.divisoes.A1.melhor.brasileiro.razao, 2)}) e com a
+escolhida (razão ${f(P.A1.razao, 2)}). É o que mostra onde a escada linear erra: espera pouco do topo e
+demais da Série B.
+
+${tabela(['faixa', 'casos', 'pontos/jogo', 'esperado, linear', 'resíduo, linear', `esperado, ${NOME[P.semente]}`, `resíduo, ${NOME[P.semente]}`], fx.map(k => [k, F.brasileiro[k].n, f(F.brasileiro[k].real, 2), f(F.brasileiro[k].esperado, 2), res(F.brasileiro[k]), f(F[P.semente][k].esperado, 2), res(F[P.semente][k])]))}
 `);
   return o.join('\n');
 }
