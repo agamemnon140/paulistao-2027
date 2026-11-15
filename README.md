@@ -15,14 +15,20 @@ As decisões de desenho e os fatos que as sustentam estão em [`docs/DECISOES.md
 | Formato do Paulista (`engine/paulista.mjs`): mando sorteado, desempate, mata-mata, A1 e A2 | Feito; regras conferidas contra o que aconteceu em 2026 |
 | Backtest das sementes (`eval/`) | Feito para seis sementes; resultado em [`eval/RELATORIO.md`](eval/RELATORIO.md), decisões em `docs/DECISOES.md` (17 a 19) |
 | Projeção pré-tabela (`scripts/projetar.mjs`, `predictions.jsonl`) | Feita em 14/11/2026 com sementes provisórias: a Série A de 2026 ainda não acabou |
-| Interface, arquivo de previsões, ingestão de 2027 | Não feitos |
+| Interface (`app/`) | Primeira versão: projeção, matriz de posições, mata-mata, sorteio, uma temporada, evolução. Publicada pelo workflow "Publicar" no GitHub Pages |
+| Vagas nacionais de 2028, edição manual de resultados, ingestão de 2027 | Não feitas: as vagas dependem de conferir o regulamento; a edição e a ingestão, da tabela oficial |
 
 ## Rodar
 
-Não há dependências; basta Node 22 ou mais novo.
+O motor, o backtest e a projeção não têm dependências. A interface tem cinco (React,
+React DOM, Vite, o plugin de React do Vite e a fonte Archivo), todas do registro npm; o CI
+confere as assinaturas (`npm audit signatures`). Node 22.12 ou mais novo.
 
 ```bash
-npm test                                   # paridade com o motor, leitor da FPF, formato, backtest
+npm ci                                     # uma vez
+npm run dev                                # interface em http://localhost:5173
+npm run build                              # gera dist/ (não vai para o git; o CI publica)
+npm test                                   # paridade com o motor, leitor da FPF, formato, backtest, interface
 node eval/backtest.mjs                     # refaz eval/out/backtest.json e eval/RELATORIO.md
 node scripts/projetar.mjs                  # projeção das duas divisões (20.000 temporadas cada)
 node scripts/projetar.mjs --arquivar       # idem, e acrescenta a predictions.jsonl se algo mudou
@@ -66,6 +72,19 @@ anteriores da temporada, para cada semente candidata e cada amplitude, escolhe e
 2022–2025 e confirma em 2026. `eval/RELATORIO.md` é gerado, não editado: `npm test` falha
 se ele e o código divergirem, e os testes também fixam cada afirmação que
 `docs/DECISOES.md` faz sobre o resultado.
+
+## Interface
+
+`app/` é React em JSX, compilado pelo Vite. Usa o motor de `engine/` sem cópia: o Monte
+Carlo roda no navegador, num worker, com as sementes de `data/2027/sementes.json`. O
+workflow "Publicar" compila e publica no GitHub Pages a cada push em `main`
+(https://agamemnon140.github.io/paulistao-2027/); para isso o Pages do repositório precisa
+estar com a fonte "GitHub Actions". É instalável e abre sem rede depois da primeira visita.
+`test/app.test.mjs` monta cada seção de cada divisão com dados reais, sem navegador.
+
+O desenho usa as cinco cores da bandeira paulista, cada uma com um ofício: preto e branco
+fazem a estrutura, azul mede chance boa, vermelho mede queda, amarelo avisa do que é
+provisório. A tipografia é uma família só (Archivo), larga nos títulos e estreita nos números.
 
 ## Projeção e arquivo de previsões
 

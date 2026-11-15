@@ -12,6 +12,12 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
-      # Sem dependências: o motor e os testes usam só a biblioteca padrão do Node.
-      - name: Paridade com o motor original e leitor da FPF
+          cache: npm
+      # O motor não tem dependências; a interface tem (React e Vite), e o teste dela monta o app.
+      - run: npm ci
+      - name: Assinaturas dos pacotes no registro
+        run: npm audit signatures
+      - name: Testes
         run: npm test
+      - name: A interface compila
+        run: npm run build

@@ -1,0 +1,184 @@
+/* Paulistão 2027.
+   As cinco cores da bandeira paulista, cada uma com um ofício só: preto e branco fazem a
+   estrutura, azul mede chance boa, vermelho mede queda, amarelo avisa do que é provisório.
+   Uma família tipográfica (Archivo): larga nos títulos, estreita nos números. */
+
+:root {
+  --fundo: #eef0f3;
+  --superficie: #ffffff;
+  --tinta: #000000;
+  --tinta-2: #4f5661;
+  --regua: #d3d7dd;
+  --azul-lo: #eaf0fc;
+  --azul-hi: #12399e;
+  --verm-lo: #fcecee;
+  --verm-hi: #c8102e;
+  --vermelho: #c8102e;
+  --amarelo: #f5c400;
+  --sobre-hi: #ffffff;
+  --trilho: #e3e6ea;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #000000;
+    --superficie: #15171b;
+    --tinta: #ffffff;
+    --tinta-2: #a9b0bb;
+    --regua: #343941;
+    --azul-lo: #161d30;
+    --azul-hi: #6f9bff;
+    --verm-lo: #2a1519;
+    --verm-hi: #ff6b7d;
+    --vermelho: #ff6b7d;
+    --sobre-hi: #000000;
+    --trilho: #2a2e35;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.pagina { max-width: 1040px; margin: 0 auto; padding: 0 16px calc(48px + env(safe-area-inset-bottom)); }
+
+/* ---------- topo ---------- */
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding: 20px 0 14px; }
+.marca { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.marca h1 { margin: 0; font-size: clamp(1.5rem, 5.4vw, 2.25rem); font-weight: 800; font-stretch: 125%; letter-spacing: -0.02em; line-height: 1.05; }
+/* A bandeira: treze listras pretas e brancas e o cantão vermelho. */
+.bandeira { position: relative; flex: none; width: 42px; height: 28px; border: 1px solid var(--tinta);
+  background: repeating-linear-gradient(to bottom, #000 0 calc(100% / 13), #fff calc(100% / 13) calc(200% / 13)); }
+.bandeira span { position: absolute; inset: 0 auto auto 0; width: 42%; height: calc(500% / 13); background: #c8102e; }
+
+.divisoes { display: inline-flex; border: 2px solid var(--tinta); border-radius: 999px; overflow: hidden; }
+.divisoes button { appearance: none; border: 0; background: transparent; color: var(--tinta); font: inherit; font-weight: 700; font-stretch: 88%; padding: 7px 16px; cursor: pointer; }
+.divisoes button[aria-pressed='true'] { background: var(--tinta); color: var(--fundo); }
+
+.aviso { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 14px; padding: 10px 12px; background: var(--superficie); border-left: 6px solid var(--amarelo); font-size: 0.9375rem; max-width: 76ch; }
+.selo { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-top: 2px; background: var(--amarelo); color: #000; font-weight: 800; font-size: 0.8125rem; border-radius: 50%; }
+
+.abas { display: flex; gap: 4px; overflow-x: auto; border-bottom: 2px solid var(--tinta); scrollbar-width: none; }
+.abas::-webkit-scrollbar { display: none; }
+.abas button { appearance: none; flex: none; border: 0; background: transparent; color: var(--tinta-2); font: inherit; font-weight: 600; font-stretch: 88%; padding: 10px 12px 9px; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; }
+.abas button[aria-current='page'] { color: var(--tinta); border-bottom-color: var(--tinta); }
+
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--azul-hi); outline-offset: 2px; }
+
+/* ---------- texto ---------- */
+main { padding-top: 6px; }
+h2 { text-wrap: balance; margin: 28px 0 4px; font-size: clamp(1.25rem, 3.6vw, 1.625rem); font-weight: 750; font-stretch: 112%; letter-spacing: -0.01em; line-height: 1.2; max-width: 34ch; }
+h3 { margin: 22px 0 6px; font-size: 1.0625rem; font-weight: 700; font-stretch: 106%; }
+p { margin: 0 0 12px; }
+.lide, .nota, .leitura, .rodape-sim, .texto p, .texto li, .chega { max-width: 70ch; }
+.lide { color: var(--tinta-2); margin-bottom: 14px; }
+.nota, .rodape-sim { color: var(--tinta-2); font-size: 0.9375rem; margin-top: 12px; }
+.leitura { min-height: 1.5em; margin-top: 8px; font-weight: 600; font-stretch: 92%; }
+.espera { margin: 40px 0; font-size: 1.125rem; font-weight: 600; }
+.erro { padding: 10px 12px; border-left: 6px solid var(--vermelho); background: var(--superficie); }
+.texto ul { padding-left: 1.2em; margin: 0 0 12px; }
+.texto li { margin-bottom: 6px; }
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ficha { display: grid; grid-template-columns: minmax(0, 22ch) minmax(0, 1fr); gap: 6px 16px; margin: 0 0 16px; max-width: 70ch; }
+.ficha dt { color: var(--tinta-2); }
+.ficha dd { margin: 0; font-weight: 600; }
+
+button.texto { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: var(--tinta); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
+button.acao { appearance: none; border: 2px solid var(--tinta); background: var(--tinta); color: var(--fundo); font: inherit; font-weight: 700; font-stretch: 92%; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+
+.campos { display: flex; gap: 12px 20px; flex-wrap: wrap; }
+.campo { display: inline-flex; flex-direction: column; gap: 4px; font-size: 0.875rem; color: var(--tinta-2); margin-bottom: 14px; }
+.campo select { font: inherit; font-size: 1rem; font-weight: 600; color: var(--tinta); background: var(--superficie); border: 2px solid var(--tinta); border-radius: 6px; padding: 7px 10px; min-width: 15ch; }
+
+/* ---------- tabelas ---------- */
+.rolagem { overflow-x: auto; background: var(--superficie); border-top: 2px solid var(--tinta); border-bottom: 2px solid var(--tinta); }
+.tabela { border-collapse: separate; border-spacing: 0; width: 100%; font-stretch: 80%; font-variant-numeric: tabular-nums; }
+.tabela th, .tabela td { padding: 7px 8px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--regua); }
+.tabela tbody tr:last-child > * { border-bottom: 0; }
+.tabela thead th { font-size: 0.875rem; font-weight: 650; color: var(--tinta-2); vertical-align: bottom; background: var(--superficie); }
+.tabela thead th button { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.tabela thead th[aria-sort] button { color: var(--tinta); text-decoration: underline solid 2px; }
+.tabela .clube { text-align: left; position: sticky; left: 0; z-index: 1; background: var(--superficie); }
+.tabela .esq { text-align: left; }
+.clube .nome { font-weight: 700; font-stretch: 90%; }
+.clube .serie { color: var(--tinta-2); font-size: 0.8125rem; font-weight: 500; }
+.pontos { font-weight: 700; }
+
+.chance { background: color-mix(in oklab, var(--hi) calc(var(--f) * 1%), var(--lo)); border-left: 2px solid var(--superficie); min-width: 3.4em; }
+.chance.bom { --lo: var(--azul-lo); --hi: var(--azul-hi); }
+.chance.ruim { --lo: var(--verm-lo); --hi: var(--verm-hi); }
+.chance.forte { color: var(--sobre-hi); font-weight: 650; }
+
+.matriz th, .matriz td { padding: 6px 0; text-align: center; }
+.matriz .clube { padding: 6px 8px; }
+.matriz td.chance { min-width: 1.9em; font-size: 0.8125rem; cursor: default; }
+.matriz .corte { border-right: 3px solid var(--tinta); }
+.matriz .queda { border-right: 3px solid var(--vermelho); }
+
+.classificacao td.pos { color: var(--tinta-2); text-align: right; width: 2.2em; }
+.classificacao .clube { position: static; }
+.classificacao tr.corte > * { border-bottom: 3px solid var(--tinta); }
+.classificacao tr.queda > * { border-bottom: 3px solid var(--vermelho); }
+.duas section > .tabela { background: var(--superficie); border-top: 2px solid var(--tinta); border-bottom: 2px solid var(--tinta); }
+
+.sorteio .clube { white-space: normal; position: static; }
+.sorteio .lista { display: block; font-size: 0.875rem; font-weight: 400; color: var(--tinta-2); max-width: 62ch; }
+.sorteio .larga { width: 34%; min-width: 8.5em; }
+.sorteio td { vertical-align: top; }
+.medida { display: flex; align-items: center; gap: 8px; }
+.medida .valor { width: 2.2em; font-weight: 700; }
+
+/* ---------- barras e gráfico ---------- */
+.trilho { flex: 1; display: block; height: 8px; background: var(--trilho); border-radius: 0 4px 4px 0; }
+.barra { display: block; height: 100%; background: var(--azul-hi); border-radius: 0 4px 4px 0; }
+.barra.neutra { background: var(--tinta); }
+.barras { list-style: none; margin: 0 0 8px; padding: 0; font-stretch: 86%; }
+.barras li { display: grid; grid-template-columns: minmax(0, 11em) minmax(60px, 1fr) 3.6em; align-items: center; gap: 10px; padding: 5px 0; }
+.barras .rotulo { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.barras .valor { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.fases { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 0 32px; }
+.fases section { border-top: 2px solid var(--tinta); margin-top: 14px; }
+.chega { color: var(--tinta-2); font-size: 0.9375rem; }
+.chega strong { color: var(--tinta); }
+
+.grafico { margin: 0; background: var(--superficie); border-top: 2px solid var(--tinta); border-bottom: 2px solid var(--tinta); padding: 12px 8px 4px; }
+.grafico figcaption { font-weight: 700; font-stretch: 92%; padding: 0 8px 6px; }
+.grafico svg { display: block; width: 100%; height: auto; max-height: 320px; }
+.grade { stroke: var(--regua); stroke-width: 1; }
+.eixo { fill: var(--tinta-2); font-size: 12px; font-stretch: 80%; }
+.linha { fill: none; stroke: var(--azul-hi); stroke-width: 2; stroke-linejoin: round; }
+.ponto { fill: var(--azul-hi); stroke: var(--superficie); stroke-width: 2; }
+.ponto.ativo { stroke: var(--tinta); }
+.alvo { fill: transparent; cursor: pointer; }
+.grafico .valor { fill: var(--tinta); font-size: 14px; font-weight: 700; font-stretch: 86%; }
+
+/* ---------- uma temporada ---------- */
+.campeao { font-size: 1.125rem; max-width: 60ch; }
+.duas { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0 36px; align-items: start; }
+.confrontos { list-style: none; margin: 0 0 6px; padding: 0; border-top: 2px solid var(--tinta); }
+.confrontos li { padding: 8px 0; border-bottom: 1px solid var(--regua); display: grid; gap: 2px; }
+.confrontos .placares { display: flex; flex-wrap: wrap; gap: 2px 16px; color: var(--tinta-2); font-size: 0.9375rem; font-stretch: 86%; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 720px) {
+  .duas { grid-template-columns: minmax(0, 1fr); }
+  .tabela th, .tabela td { padding: 6px 4px; }
+  .tabela { font-stretch: 70%; }
+  .clube .nome { font-stretch: 74%; }
+  /* No celular a projeção inteira cabe na largura da tela: nome em até duas linhas e
+     colunas de chance estreitas. Título e queda não podem ficar escondidos na rolagem. */
+  .projecao { font-size: 0.9375rem; table-layout: fixed; }
+  .projecao .clube { width: 31%; white-space: normal; line-height: 1.15; }
+  .projecao .clube .serie { display: block; }
+  .projecao thead th { white-space: normal; font-size: 0.75rem; line-height: 1.15; }
+  .projecao .chance { min-width: 0; }
+  .matriz td.chance { min-width: 1.75em; font-size: 0.75rem; }
+  .aviso { font-size: 0.875rem; }
+  .ficha { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .ficha dd { margin-bottom: 8px; }
+}

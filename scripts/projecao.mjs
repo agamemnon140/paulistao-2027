@@ -7,9 +7,8 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { CFG_MODELO } from '../engine/config.mjs';
-import { postosNacionais, notaBrasileiro, elosDaNota, comAmplitude } from '../engine/semente.mjs';
-import { simMCPaulista } from '../engine/paulista.mjs';
-import { mulberry32 } from '../engine/rng.mjs';
+import { postosNacionais, notaBrasileiro, elosDaNota } from '../engine/semente.mjs';
+import { montarEntradas, projetarCom } from '../app/projecao.js';
 import { nacionalPorAno } from './nacional.mjs';
 
 export const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -42,8 +41,7 @@ export const serializarSementes = s => JSON.stringify(s, null, 1) + '\n';
 
 // O que entra na simulação de uma divisão, tudo num objeto só.
 export function entradas(sigla, sementes = lerSementes()) {
-  const comp = lerCompeticao(sigla), s = sementes[sigla];
-  return { comp, semente: s, getElo: t => s.clubes[t].elo, cfg: comAmplitude(CFG_MODELO, s.razao) };
+  return montarEntradas(lerCompeticao(sigla), sementes[sigla]);
 }
 
 // Impressão digital do que determina o resultado: dados, sementes, configuração e o código
@@ -57,8 +55,7 @@ export function impressao(sigla, { nS, seed, res = [] }, sementes = lerSementes(
 
 export function projetar(sigla, { nS = N_SIMS, seed = SEMENTE_RNG, res = [], sementes = lerSementes() } = {}) {
   const e = entradas(sigla, sementes);
-  const r = simMCPaulista({ comp: e.comp, getElo: e.getElo, cfg: e.cfg, res, nS, rnd: mulberry32(seed) });
-  return { ...r, entradas: e, seed };
+  return { ...projetarCom(e, { nS, seed, res }), entradas: e, seed };
 }
 
 // Uma linha do arquivo de previsões (docs/DECISOES.md, 15): o que o modelo dizia, quando,

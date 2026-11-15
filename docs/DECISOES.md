@@ -126,6 +126,25 @@ Para fechar as sementes quando a Série A acabar: rodar o workflow "Classificaç
 nacionais" com `anos=2026`, trocar `provisoria` para `false` em `data/2027/a1.json` e
 `a2.json`, e rodar `node scripts/projetar.mjs --sementes --arquivar`.
 
+## Interface (14/11/2026)
+
+Primeira versão em `app/`, compilada pelo Vite e publicada pelo workflow "Publicar". Tem
+seis seções por divisão: Projeção (tabela de chances e matriz de posições), Mata-mata
+(adversários prováveis em cada fase), Sorteio (dificuldade dos oito adversários, só no A1),
+Uma temporada (uma simulação inteira, jogo a jogo), Evolução (lida de `predictions.jsonl`)
+e Como funciona (modelo e premissas em linguagem comum). O Monte Carlo roda no navegador,
+10.000 temporadas por divisão. É instalável e abre sem rede.
+
+Do que a decisão 12 e a 14 pedem, ficou de fora:
+
+- **Vagas de 2028.** Falta conferir os Arts. 69 e 70 no PDF e a fila estadual do
+  `brasileiro-2026` (ver premissas abaixo) antes de codificar.
+- **Edição manual de resultados.** Sem a tabela oficial não há jogo com mando para editar;
+  entra junto com a tabela, em dezembro.
+
+O Pages do repositório precisa estar com a fonte "GitHub Actions" (Settings, Pages). A
+sessão que montou o app não tinha acesso a essa configuração.
+
 ## Premissas rotuladas (trocar quando os regulamentos de 2027 saírem)
 
 - Final do A1 em ida e volta. A FPF quer duas partidas, mas depende do calendário.

@@ -1,0 +1,43 @@
+name: Publicar
+
+# Compila a interface e publica no GitHub Pages a cada push em main. O que é gerado (dist/)
+# não entra no repositório: a fonte é app/, engine/ e data/.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  publicar:
+    needs: compilar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.pub.outputs.page_url }}
+    steps:
+      - id: pub
+        uses: actions/deploy-pages@v4
